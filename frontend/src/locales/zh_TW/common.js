@@ -141,7 +141,7 @@ const TRANSLATIONS = {
     contact: "聯絡 Mintplex Labs",
   },
   "new-workspace": {
-    title: "新增工作區",
+    title: "新增工作區2",
     placeholder: "我的工作區",
   },
   "workspaces—settings": {
