@@ -45,21 +45,21 @@ class MetaGenerator {
       {
         tag: "title",
         props: null,
-        content: "InteplastLLM | Your personal LLM trained on anything",
+        content: "InteplastLLM",
       },
 
       {
         tag: "meta",
         props: {
           name: "title",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
       {
         tag: "meta",
         props: {
           description: "title",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
 
@@ -73,14 +73,14 @@ class MetaGenerator {
         tag: "meta",
         props: {
           property: "og:title",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
       {
         tag: "meta",
         props: {
           property: "og:description",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
       {
@@ -105,14 +105,14 @@ class MetaGenerator {
         tag: "meta",
         props: {
           property: "twitter:title",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
       {
         tag: "meta",
         props: {
           property: "twitter:description",
-          content: "InteplastLLM | Your personal LLM trained on anything",
+          content: "InteplastLLM",
         },
       },
       {
@@ -191,7 +191,7 @@ class MetaGenerator {
           props: null,
           content:
             customTitle ??
-            "InteplastLLM | Your personal LLM trained on anything",
+            "InteplastLLM",
         },
       ];
     }
