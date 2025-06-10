@@ -27,7 +27,7 @@ const client = new OpenAI({
       { role: "user", content: "What is AnythingLLM?" },
       // {
       //   role: 'assistant',
-      //   content: "Arrr, matey! AnythingLLM be a fine tool fer sailin' the treacherous sea o' information with a powerful language model at yer helm. It's a potent instrument to handle all manner o' tasks involvin' text, like answerin' questions, generating prose, or even havin' a chat with digital scallywags like meself. Be there any specific treasure ye seek in the realm o' AnythingLLM?"
+      //   content: "Arrr, matey! InteplastLLM be a fine tool fer sailin' the treacherous sea o' information with a powerful language model at yer helm. It's a potent instrument to handle all manner o' tasks involvin' text, like answerin' questions, generating prose, or even havin' a chat with digital scallywags like meself. Be there any specific treasure ye seek in the realm o' AnythingLLM?"
       // },
       // { role: "user", content: "Why are you talking like a pirate?" },
     ],

@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="InteplastLLM logo"></a>
 </p>
 
 <div align='center'>
@@ -34,7 +34,7 @@ Belgelerinizle sohbet edin, yapay zeka ajanlarını kullanın, son derece özell
 
 
 <p align="center">  
-👉 Masaüstü için AnythingLLM (Mac, Windows ve Linux)! <a href="https://anythingllm.com/download" target="_blank"> Şimdi İndir</a>  
+👉 Masaüstü için InteplastLLM (Mac, Windows ve Linux)! <a href="https://anythingllm.com/download" target="_blank"> Şimdi İndir</a>  
 </p>  
 
 Herhangi bir belgeyi, kaynağı veya içeriği sohbet sırasında herhangi bir büyük dil modelinin referans olarak kullanabileceği bir bağlama dönüştürmenizi sağlayan tam kapsamlı bir uygulama. Bu uygulama, kullanmak istediğiniz LLM veya Vektör Veritabanını seçmenize olanak tanırken, çok kullanıcılı yönetim ve yetkilendirme desteği de sunar.
@@ -104,7 +104,7 @@ AnythingLLM, belgelerinizi **"çalışma alanları" (workspaces)** adı verilen 
 
 **Embedder modelleri:**
 
-- [AnythingLLM Native Embedder](/server/storage/models/README.md) (default)
+- [InteplastLLM Native Embedder](/server/storage/models/README.md) (default)
 - [OpenAI](https://openai.com)
 - [Azure OpenAI](https://azure.microsoft.com/en-us/products/ai-services/openai-service)
 - [LocalAi (all)](https://localai.io/)
@@ -114,7 +114,7 @@ AnythingLLM, belgelerinizi **"çalışma alanları" (workspaces)** adı verilen 
 
 **Ses Transkripsiyon Modelleri:**
 
-- [AnythingLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
+- [InteplastLLM Built-in](https://github.com/Mintplex-Labs/anything-llm/tree/master/server/storage/models#audiovideo-transcription) (default)
 - [OpenAI](https://openai.com/)
 
 **TTS (text-to-speech) desteği:**
@@ -163,7 +163,7 @@ Mintplex Labs ve topluluk, AnythingLLM'i yerel olarak çalıştırmak için çe�
 | --- | --- | --- |
 | [![Deploy on Railway][railway-btn]][railway-deploy] | [![Deploy on RepoCloud][repocloud-btn]][repocloud-deploy] | [![Deploy on Elestio][elestio-btn]][elestio-deploy] |
 
-[veya Docker kullanmadan üretim ortamında AnythingLLM kurun →](../BARE_METAL.md)  
+[veya Docker kullanmadan üretim ortamında InteplastLLM kurun →](../BARE_METAL.md)  
 
 ## Geliştirme İçin Kurulum  
 
@@ -179,10 +179,10 @@ Mintplex Labs ve topluluk, AnythingLLM'i yerel olarak çalıştırmak için çe�
 
 ## Harici Uygulamalar ve Entegrasyonlar  
 
-_Bu uygulamalar Mintplex Labs tarafından yönetilmemektedir, ancak AnythingLLM ile uyumludur. Burada listelenmeleri bir onay anlamına gelmez._  
+_Bu uygulamalar Mintplex Labs tarafından yönetilmemektedir, ancak InteplastLLM ile uyumludur. Burada listelenmeleri bir onay anlamına gelmez._  
 
 - [Midori AI Alt Sistem Yöneticisi](https://io.midori-ai.xyz/subsystem/anythingllm/) - Docker konteyner teknolojisini kullanarak yapay zeka sistemlerini verimli bir şekilde dağıtmanın pratik bir yolu.  
-- [Coolify](https://coolify.io/docs/services/anythingllm/) - Tek tıklamayla AnythingLLM dağıtımı yapmanıza olanak tanır.  
+- [Coolify](https://coolify.io/docs/services/anythingllm/) - Tek tıklamayla InteplastLLM dağıtımı yapmanıza olanak tanır.  
 - [GPTLocalhost for Microsoft Word](https://gptlocalhost.com/demo/) - AnythingLLM’i Microsoft Word içinde kullanmanıza olanak tanıyan yerel bir Word eklentisi.
 
 ## Telemetri ve Gizlilik  
@@ -190,7 +190,7 @@ _Bu uygulamalar Mintplex Labs tarafından yönetilmemektedir, ancak AnythingLLM 
 Mintplex Labs Inc. tarafından geliştirilen AnythingLLM, anonim kullanım bilgilerini toplayan bir telemetri özelliği içermektedir.  
 
 <details>  
-<summary><kbd>AnythingLLM için Telemetri ve Gizlilik hakkında daha fazla bilgi</kbd></summary>  
+<summary><kbd>InteplastLLM için Telemetri ve Gizlilik hakkında daha fazla bilgi</kbd></summary>  
 
 ### Neden?  
 

@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 <p align="center">
-  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="AnythingLLM logo"></a>
+  <a href="https://anythingllm.com"><img src="https://github.com/Mintplex-Labs/anything-llm/blob/master/images/wordmark.png?raw=true" alt="InteplastLLM logo"></a>
 </p>
 
 <div align='center'>
@@ -178,7 +178,7 @@ Mintplex Labs和社区维护了许多部署方法、脚本和模板，您可以�
 
 ## 外部应用与集成
 
-_以下是一些与 AnythingLLM 兼容的应用程序，但并非由 Mintplex Labs 维护。列在此处并不代表官方背书。_
+_以下是一些与 InteplastLLM 兼容的应用程序，但并非由 Mintplex Labs 维护。列在此处并不代表官方背书。_
 
 - [Midori AI 子系统管理器 - 使用 Docker 容器技术高效部署 AI 系统的简化方式](https://io.midori-ai.xyz/subsystem/anythingllm/) - 使用 Docker 容器技术高效部署 AI 系统的简化方式。
 - [Coolify](https://coolify.io/docs/services/anythingllm/) - 一键部署 AnythingLLM。
@@ -186,17 +186,17 @@ _以下是一些与 AnythingLLM 兼容的应用程序，但并非由 Mintplex La
 
 ## 远程信息收集与隐私保护
 
-由 Mintplex Labs Inc 开发的 AnythingLLM 包含一个收集匿名使用信息的 Telemetry 功能。
+由 Mintplex Labs Inc 开发的 InteplastLLM 包含一个收集匿名使用信息的 Telemetry 功能。
 
 <details>
-<summary><kbd>有关 AnythingLLM 的远程信息收集与隐私保护更多信息</kbd></summary>
+<summary><kbd>有关 InteplastLLM 的远程信息收集与隐私保护更多信息</kbd></summary>
 
 
 
 
 ### 为什么收集信息？
 
-我们使用这些信息来帮助我们理解 AnythingLLM 的使用情况，帮助我们确定新功能和错误修复的优先级，并帮助我们提高 AnythingLLM 的性能和稳定性。
+我们使用这些信息来帮助我们理解 InteplastLLM 的使用情况，帮助我们确定新功能和错误修复的优先级，并帮助我们提高 InteplastLLM 的性能和稳定性。
 
 ### 怎样关闭
 

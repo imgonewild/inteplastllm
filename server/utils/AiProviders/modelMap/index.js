@@ -7,7 +7,7 @@ class ContextWindowFinder {
   static modelMap = LEGACY_MODEL_MAP;
 
   /**
-   * Mapping for AnythingLLM provider <> LiteLLM provider
+   * Mapping for InteplastLLM provider <> LiteLLM provider
    * @type {Record<string, string>}
    */
   static trackedProviders = {

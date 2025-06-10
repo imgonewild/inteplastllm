@@ -119,11 +119,11 @@ const TRANSLATIONS = {
   },
   welcomeMessage: {
     part1:
-      "Bienvenido a AnythingLLM, una herramienta de inteligencia artificial de código abierto creada por Mintplex Labs que convierte cualquier cosa en un chatbot entrenado con el que puedes consultar y conversar. AnythingLLM es un software BYOK (bring-your-own-keys), por lo que no hay suscripciones, tarifas ni cargos por este software, salvo por los servicios que deseas utilizar.",
+      "Bienvenido a AnythingLLM, una herramienta de inteligencia artificial de código abierto creada por Mintplex Labs que convierte cualquier cosa en un chatbot entrenado con el que puedes consultar y conversar. InteplastLLM es un software BYOK (bring-your-own-keys), por lo que no hay suscripciones, tarifas ni cargos por este software, salvo por los servicios que deseas utilizar.",
     part2:
-      "AnythingLLM es la forma más sencilla de integrar productos de inteligencia artificial potentes como OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB y otros servicios en un paquete ordenado, sin complicaciones, para aumentar tu productividad en un 100x.",
+      "InteplastLLM es la forma más sencilla de integrar productos de inteligencia artificial potentes como OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB y otros servicios en un paquete ordenado, sin complicaciones, para aumentar tu productividad en un 100x.",
     part3:
-      "AnythingLLM puede ejecutarse completamente en tu máquina local con poco impacto, ¡ni siquiera notarás que está ahí! No se necesita GPU. También está disponible la instalación en la nube y en instalaciones locales.\nEl ecosistema de herramientas de inteligencia artificial se vuelve más poderoso cada día. AnythingLLM facilita su uso.",
+      "InteplastLLM puede ejecutarse completamente en tu máquina local con poco impacto, ¡ni siquiera notarás que está ahí! No se necesita GPU. También está disponible la instalación en la nube y en instalaciones locales.\nEl ecosistema de herramientas de inteligencia artificial se vuelve más poderoso cada día. InteplastLLM facilita su uso.",
     githubIssue: "Crear un problema en GitHub",
     user1: "¿Cómo empiezo?!",
     part4:
@@ -132,7 +132,7 @@ const TRANSLATIONS = {
     user2:
       "¿Es esto como un Dropbox de IA o algo así? ¿Qué hay de chatear? ¿Es un chatbot, no?",
     part5:
-      "AnythingLLM es más que un Dropbox más inteligente.\n\nAnythingLLM ofrece dos formas de interactuar con tus datos:\n\n<i>Consulta:</i> Tus chats devolverán datos o inferencias encontradas con los documentos en tu workspace al que tiene acceso. ¡Agregar más documentos al workspace lo hace más inteligente! \n\n<i>Conversacional:</i> Tus documentos y tu historial de chat en curso contribuyen al conocimiento del LLM al mismo tiempo. Ideal para agregar información en tiempo real basada en texto o correcciones y malentendidos que el LLM pueda tener.\n\n¡Puedes alternar entre ambos modos <i>en medio de una conversación!</i>",
+      "InteplastLLM es más que un Dropbox más inteligente.\n\nAnythingLLM ofrece dos formas de interactuar con tus datos:\n\n<i>Consulta:</i> Tus chats devolverán datos o inferencias encontradas con los documentos en tu workspace al que tiene acceso. ¡Agregar más documentos al workspace lo hace más inteligente! \n\n<i>Conversacional:</i> Tus documentos y tu historial de chat en curso contribuyen al conocimiento del LLM al mismo tiempo. Ideal para agregar información en tiempo real basada en texto o correcciones y malentendidos que el LLM pueda tener.\n\n¡Puedes alternar entre ambos modos <i>en medio de una conversación!</i>",
     user3: "¡Vaya, esto suena increíble, déjame probarlo ya!",
     part6: "¡Diviértete!",
     starOnGitHub: "Estrella en GitHub",
@@ -355,7 +355,7 @@ const TRANSLATIONS = {
   api: {
     title: "Claves API",
     description:
-      "Las claves API permiten al titular acceder y gestionar programáticamente esta instancia de AnythingLLM.",
+      "Las claves API permiten al titular acceder y gestionar programáticamente esta instancia de InteplastLLM.",
     link: "Leer la documentación de la API",
     generate: "Generar nueva clave API",
     table: {
@@ -367,7 +367,7 @@ const TRANSLATIONS = {
   llm: {
     title: "Preferencia de LLM",
     description:
-      "Estas son las credenciales y configuraciones para tu proveedor preferido de chat y incrustación de LLM. Es importante que estas claves estén actualizadas y correctas, de lo contrario AnythingLLM no funcionará correctamente.",
+      "Estas son las credenciales y configuraciones para tu proveedor preferido de chat y incrustación de LLM. Es importante que estas claves estén actualizadas y correctas, de lo contrario InteplastLLM no funcionará correctamente.",
     provider: "Proveedor de LLM",
     providers: {
       azure_openai: {
@@ -387,7 +387,7 @@ const TRANSLATIONS = {
       "Estas son las credenciales y configuraciones para tu proveedor preferido de modelo de transcripción. Es importante que estas claves estén actualizadas y correctas, de lo contrario los archivos multimedia y de audio no se transcribirán.",
     provider: "Proveedor de transcripción",
     "warn-start":
-      "El uso del modelo local Whisper en máquinas con RAM o CPU limitadas puede bloquear AnythingLLM al procesar archivos multimedia.",
+      "El uso del modelo local Whisper en máquinas con RAM o CPU limitadas puede bloquear InteplastLLM al procesar archivos multimedia.",
     "warn-recommend":
       "Recomendamos al menos 2GB de RAM y subir archivos <10Mb.",
     "warn-end":
@@ -398,11 +398,11 @@ const TRANSLATIONS = {
     "desc-start":
       "Cuando uses un LLM que no admita de forma nativa un motor de incrustación, es posible que necesites especificar credenciales adicionales para incrustar texto.",
     "desc-end":
-      "La incrustación es el proceso de convertir texto en vectores. Estas credenciales son necesarias para convertir tus archivos y prompts en un formato que AnythingLLM pueda usar para procesar.",
+      "La incrustación es el proceso de convertir texto en vectores. Estas credenciales son necesarias para convertir tus archivos y prompts en un formato que InteplastLLM pueda usar para procesar.",
     provider: {
       title: "Proveedor de incrustación",
       description:
-        "No se requiere configuración cuando se utiliza el motor de incrustación nativo de AnythingLLM.",
+        "No se requiere configuración cuando se utiliza el motor de incrustación nativo de InteplastLLM.",
     },
   },
   text: {
@@ -429,7 +429,7 @@ const TRANSLATIONS = {
   vector: {
     title: "Base de datos de vectores",
     description:
-      "Estas son las credenciales y configuraciones para cómo funcionará tu instancia de AnythingLLM. Es importante que estas claves estén actualizadas y correctas.",
+      "Estas son las credenciales y configuraciones para cómo funcionará tu instancia de InteplastLLM. Es importante que estas claves estén actualizadas y correctas.",
     provider: {
       title: "Proveedor de base de datos de vectores",
       description: "No se necesita configuración para LanceDB.",
@@ -475,7 +475,7 @@ const TRANSLATIONS = {
     password: {
       title: "Protección con contraseña",
       description:
-        "Protege tu instancia de AnythingLLM con una contraseña. Si olvidas esta contraseña, no hay método de recuperación, así que asegúrate de guardar esta contraseña.",
+        "Protege tu instancia de InteplastLLM con una contraseña. Si olvidas esta contraseña, no hay método de recuperación, así que asegúrate de guardar esta contraseña.",
     },
     instance: {
       title: "Proteger instancia con contraseña",
@@ -498,7 +498,7 @@ const TRANSLATIONS = {
   privacy: {
     title: "Privacidad y manejo de datos",
     description:
-      "Esta es tu configuración para cómo los proveedores de terceros conectados y AnythingLLM manejan tus datos.",
+      "Esta es tu configuración para cómo los proveedores de terceros conectados y InteplastLLM manejan tus datos.",
     llm: "Selección de LLM",
     embedding: "Preferencia de incrustación",
     vector: "Base de datos de vectores",

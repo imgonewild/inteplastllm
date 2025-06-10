@@ -8,7 +8,7 @@ const TRANSLATIONS = {
     llm: {
       title: "Preferência de LLM",
       description:
-        "AnythingLLM funciona com vários provedores de LLM. Este será o serviço que lidará com os chats.",
+        "InteplastLLM funciona com vários provedores de LLM. Este será o serviço que lidará com os chats.",
     },
     userSetup: {
       title: "Configuração do Usuário",
@@ -38,7 +38,7 @@ const TRANSLATIONS = {
     },
     survey: {
       title: "Bem-vindo ao AnythingLLM",
-      description: "Ajude-nos a melhorar o AnythingLLM. Opcional.",
+      description: "Ajude-nos a melhorar o InteplastLLM. Opcional.",
       email: "Qual seu email?",
       useCase: "Como você usará o AnythingLLM?",
       useCaseWork: "Para trabalho",
@@ -52,7 +52,7 @@ const TRANSLATIONS = {
     },
     workspace: {
       title: "Crie seu primeiro workspace",
-      description: "Crie seu primeiro workspace e comece a usar o AnythingLLM.",
+      description: "Crie seu primeiro workspace e comece a usar o InteplastLLM.",
     },
   },
   common: {
@@ -126,11 +126,11 @@ const TRANSLATIONS = {
   },
   welcomeMessage: {
     part1:
-      "Bem-vindo ao AnythingLLM, uma ferramenta de IA open-source da Mintplex Labs que transforma qualquer conteúdo em um chatbot treinado. AnythingLLM é um software BYOK (bring-your-own-keys), sem taxas ou assinaturas.",
+      "Bem-vindo ao AnythingLLM, uma ferramenta de IA open-source da Mintplex Labs que transforma qualquer conteúdo em um chatbot treinado. InteplastLLM é um software BYOK (bring-your-own-keys), sem taxas ou assinaturas.",
     part2:
-      "AnythingLLM é a maneira mais fácil de integrar poderosas ferramentas de IA como OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB e outros serviços em um pacote simples.",
+      "InteplastLLM é a maneira mais fácil de integrar poderosas ferramentas de IA como OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB e outros serviços em um pacote simples.",
     part3:
-      "AnythingLLM pode rodar localmente na sua máquina com baixo consumo de recursos. Sem GPU necessária. Disponível para instalação na nuvem ou on-premises.\nO ecossistema de IA evolui rapidamente. AnythingLLM facilita seu uso.",
+      "InteplastLLM pode rodar localmente na sua máquina com baixo consumo de recursos. Sem GPU necessária. Disponível para instalação na nuvem ou on-premises.\nO ecossistema de IA evolui rapidamente. InteplastLLM facilita seu uso.",
     githubIssue: "Criar issue no GitHub",
     user1: "Como começar?!",
     part4:
@@ -138,7 +138,7 @@ const TRANSLATIONS = {
     createWorkspace: "Crie seu primeiro workspace",
     user2: "Isso é como um Dropbox com IA? E os chats? É um chatbot, certo?",
     part5:
-      "AnythingLLM é mais que um Dropbox inteligente.\n\nAnythingLLM oferece duas formas de interagir com seus dados:\n\n<i>Consulta:</i> Seus chats retornarão dados encontrados nos documentos do workspace.\n\n<i>Conversacional:</i> Seus documentos + histórico de chat contribuem para o conhecimento do LLM em tempo real.\n\nVocê pode alternar entre os modos <i>durante o chat!</i>",
+      "InteplastLLM é mais que um Dropbox inteligente.\n\nAnythingLLM oferece duas formas de interagir com seus dados:\n\n<i>Consulta:</i> Seus chats retornarão dados encontrados nos documentos do workspace.\n\n<i>Conversacional:</i> Seus documentos + histórico de chat contribuem para o conhecimento do LLM em tempo real.\n\nVocê pode alternar entre os modos <i>durante o chat!</i>",
     user3: "Uau, isso parece incrível, quero testar agora!",
     part6: "Divirta-se!",
     starOnGitHub: "Estrelar no GitHub",
@@ -442,7 +442,7 @@ const TRANSLATIONS = {
     },
     branding: {
       title: "Marca & Etiqueta Branca",
-      description: "Personalize sua instância do AnythingLLM com sua marca.",
+      description: "Personalize sua instância do InteplastLLM com sua marca.",
     },
     chat: {
       title: "Chat",
@@ -562,7 +562,7 @@ const TRANSLATIONS = {
       "Credenciais e configurações do seu provedor de transcrição. Essas chaves devem estar corretas para processar arquivos de mídia.",
     provider: "Provedor de Transcrição",
     "warn-start":
-      "Usar o modelo local whisper em máquinas com RAM ou CPU limitada pode travar o AnythingLLM.",
+      "Usar o modelo local whisper em máquinas com RAM ou CPU limitada pode travar o InteplastLLM.",
     "warn-recommend": "Recomendamos pelo menos 2GB de RAM e arquivos <10Mb.",
     "warn-end":
       "O modelo interno será baixado automaticamente no primeiro uso.",
@@ -576,7 +576,7 @@ const TRANSLATIONS = {
     provider: {
       title: "Provedor de Vínculo",
       description:
-        "Nenhuma configuração é necessária ao usar o mecanismo nativo do AnythingLLM.",
+        "Nenhuma configuração é necessária ao usar o mecanismo nativo do InteplastLLM.",
     },
   },
   text: {
@@ -669,7 +669,7 @@ const TRANSLATIONS = {
   privacy: {
     title: "Privacidade & Dados",
     description:
-      "Configurações de como provedores terceiros e o AnythingLLM lidam com seus dados.",
+      "Configurações de como provedores terceiros e o InteplastLLM lidam com seus dados.",
     llm: "Seleção de LLM",
     embedding: "Preferência de Vínculo",
     vector: "Banco de Dados Vetorial",
@@ -845,7 +845,7 @@ const TRANSLATIONS = {
       fetching: "Buscando...",
       "fetch-website": "Buscar site",
       "privacy-notice":
-        "Esses arquivos são enviados ao processador local do AnythingLLM. Não são compartilhados com terceiros.",
+        "Esses arquivos são enviados ao processador local do InteplastLLM. Não são compartilhados com terceiros.",
     },
     pinning: {
       what_pinning: "O que é fixar documento?",

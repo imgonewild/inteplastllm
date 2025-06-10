@@ -8,7 +8,7 @@
 
 - Pinecone account with index that allows namespaces.
 
-**Note:** [Namespaces are not supported in `gcp-starter` environments](https://docs.pinecone.io/docs/namespaces) and are required to work with AnythingLLM.
+**Note:** [Namespaces are not supported in `gcp-starter` environments](https://docs.pinecone.io/docs/namespaces) and are required to work with InteplastLLM.
 
 **Instructions**
 

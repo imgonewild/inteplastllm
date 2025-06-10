@@ -8,7 +8,7 @@ const TRANSLATIONS = {
     llm: {
       title: "LLM-præference",
       description:
-        "AnythingLLM kan arbejde med mange LLM-udbydere. Dette vil være den tjeneste, der håndterer chat.",
+        "InteplastLLM kan arbejde med mange LLM-udbydere. Dette vil være den tjeneste, der håndterer chat.",
     },
     userSetup: {
       title: "Brugeropsætning",
@@ -39,9 +39,9 @@ const TRANSLATIONS = {
     survey: {
       title: "Velkommen til AnythingLLM",
       description:
-        "Hjælp os med at gøre AnythingLLM tilpasset dine behov. Valgfrit.",
+        "Hjælp os med at gøre InteplastLLM tilpasset dine behov. Valgfrit.",
       email: "Hvad er din e-mail?",
-      useCase: "Hvad vil du bruge AnythingLLM til?",
+      useCase: "Hvad vil du bruge InteplastLLM til?",
       useCaseWork: "Til arbejde",
       useCasePersonal: "Til personligt brug",
       useCaseOther: "Andet",
@@ -54,7 +54,7 @@ const TRANSLATIONS = {
     workspace: {
       title: "Opret dit første arbejdsområde",
       description:
-        "Opret dit første arbejdsområde og kom i gang med AnythingLLM.",
+        "Opret dit første arbejdsområde og kom i gang med InteplastLLM.",
     },
   },
   common: {
@@ -128,11 +128,11 @@ const TRANSLATIONS = {
   },
   welcomeMessage: {
     part1:
-      "Velkommen til AnythingLLM, AnythingLLM er et open source AI-værktøj fra Mintplex Labs, der forvandler alt til en trænet chatbot, som du kan spørge og chatte med. AnythingLLM er en BYOK (bring-your-own-keys) software, så der er ingen abonnement, gebyr eller omkostninger forbundet med denne software udover de tjenester, du ønsker at bruge den med.",
+      "Velkommen til AnythingLLM, InteplastLLM er et open source AI-værktøj fra Mintplex Labs, der forvandler alt til en trænet chatbot, som du kan spørge og chatte med. InteplastLLM er en BYOK (bring-your-own-keys) software, så der er ingen abonnement, gebyr eller omkostninger forbundet med denne software udover de tjenester, du ønsker at bruge den med.",
     part2:
-      "AnythingLLM er den nemmeste måde at samle kraftfulde AI-produkter som OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB og andre tjenester i en praktisk pakke uden besvær, så du kan øge din produktivitet 100 gange.",
+      "InteplastLLM er den nemmeste måde at samle kraftfulde AI-produkter som OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB og andre tjenester i en praktisk pakke uden besvær, så du kan øge din produktivitet 100 gange.",
     part3:
-      "AnythingLLM kan køre helt lokalt på din maskine med minimal overhead, så du næsten ikke bemærker, at den er der! Ingen GPU er nødvendig. Installation i skyen og on-premises er også tilgængelig.\nAI-værktøjsøkosystemet bliver mere kraftfuldt hver dag. AnythingLLM gør det nemt at bruge.",
+      "InteplastLLM kan køre helt lokalt på din maskine med minimal overhead, så du næsten ikke bemærker, at den er der! Ingen GPU er nødvendig. Installation i skyen og on-premises er også tilgængelig.\nAI-værktøjsøkosystemet bliver mere kraftfuldt hver dag. InteplastLLM gør det nemt at bruge.",
     githubIssue: "Opret et issue på GitHub",
     user1: "Hvordan kommer jeg i gang?!",
     part4:
@@ -141,7 +141,7 @@ const TRANSLATIONS = {
     user2:
       "Er dette som en AI-dropbox eller noget? Hvad med chat? Det er jo en chatbot, ikke sandt?",
     part5:
-      "AnythingLLM er mere end en smartere Dropbox.\n\nAnythingLLM tilbyder to måder at kommunikere med dine data på:\n\n<i>Forespørgsel:</i> Dine chats vil returnere data eller inferenser fundet i de dokumenter, som dit arbejdsområde har adgang til. Tilføjelse af flere dokumenter til arbejdsområdet gør det klogere! \n\n<i>Samtalende:</i> Dine dokumenter + din løbende chat-historik bidrager begge til LLM'ens viden samtidigt. Perfekt til at tilføje realtids tekstbaserede oplysninger eller rette fejl og misforståelser, som LLM'en måtte have. \n\nDu kan skifte mellem de to tilstande \n<i>midt i en samtale!</i>",
+      "InteplastLLM er mere end en smartere Dropbox.\n\nAnythingLLM tilbyder to måder at kommunikere med dine data på:\n\n<i>Forespørgsel:</i> Dine chats vil returnere data eller inferenser fundet i de dokumenter, som dit arbejdsområde har adgang til. Tilføjelse af flere dokumenter til arbejdsområdet gør det klogere! \n\n<i>Samtalende:</i> Dine dokumenter + din løbende chat-historik bidrager begge til LLM'ens viden samtidigt. Perfekt til at tilføje realtids tekstbaserede oplysninger eller rette fejl og misforståelser, som LLM'en måtte have. \n\nDu kan skifte mellem de to tilstande \n<i>midt i en samtale!</i>",
     user3: "Wow, det lyder fantastisk, lad mig prøve det med det samme!",
     part6: "Hav det sjovt!",
     starOnGitHub: "Giv en stjerne på GitHub",
@@ -371,7 +371,7 @@ const TRANSLATIONS = {
   llm: {
     title: "LLM-præference",
     description:
-      "Disse er legitimationsoplysningerne og indstillingerne for din foretrukne LLM chat- og indlejringsudbyder. Det er vigtigt, at disse nøgler er opdaterede og korrekte, ellers vil AnythingLLM ikke fungere korrekt.",
+      "Disse er legitimationsoplysningerne og indstillingerne for din foretrukne LLM chat- og indlejringsudbyder. Det er vigtigt, at disse nøgler er opdaterede og korrekte, ellers vil InteplastLLM ikke fungere korrekt.",
     provider: "LLM-udbyder",
     providers: {
       azure_openai: {
@@ -391,7 +391,7 @@ const TRANSLATIONS = {
       "Disse er legitimationsoplysningerne og indstillingerne for din foretrukne transskriptionsmodeludbyder. Det er vigtigt, at disse nøgler er opdaterede og korrekte, ellers vil mediefiler og lyd ikke blive transskriberet.",
     provider: "Transskriptionsudbyder",
     "warn-start":
-      "Brug af den lokale whisper-model på maskiner med begrænset RAM eller CPU kan få AnythingLLM til at gå i stå under behandling af mediefiler.",
+      "Brug af den lokale whisper-model på maskiner med begrænset RAM eller CPU kan få InteplastLLM til at gå i stå under behandling af mediefiler.",
     "warn-recommend": "Vi anbefaler mindst 2GB RAM og upload af filer <10Mb.",
     "warn-end":
       "Den indbyggede model vil automatisk blive downloadet ved første brug.",
@@ -401,11 +401,11 @@ const TRANSLATIONS = {
     "desc-start":
       "Når du bruger en LLM, der ikke understøtter en indlejringsmotor natively, skal du muligvis yderligere angive legitimationsoplysninger til indlejring af tekst.",
     "desc-end":
-      "Indlejring er processen med at omdanne tekst til vektorer. Disse legitimationsoplysninger er nødvendige for at omdanne dine filer og prompts til et format, som AnythingLLM kan bruge til behandling.",
+      "Indlejring er processen med at omdanne tekst til vektorer. Disse legitimationsoplysninger er nødvendige for at omdanne dine filer og prompts til et format, som InteplastLLM kan bruge til behandling.",
     provider: {
       title: "Indlejringsudbyder",
       description:
-        "Ingen opsætning er nødvendig, når du bruger AnythingLLM's indbyggede indlejringsmotor.",
+        "Ingen opsætning er nødvendig, når du bruger InteplastLLM's indbyggede indlejringsmotor.",
     },
   },
   text: {
@@ -501,7 +501,7 @@ const TRANSLATIONS = {
   privacy: {
     title: "Privatliv & datahåndtering",
     description:
-      "Dette er din konfiguration for, hvordan tilsluttede tredjepartsudbydere og AnythingLLM håndterer dine data.",
+      "Dette er din konfiguration for, hvordan tilsluttede tredjepartsudbydere og InteplastLLM håndterer dine data.",
     llm: "Valg af LLM",
     embedding: "Foretrukken indlejring",
     vector: "Vektordatabase",
@@ -676,7 +676,7 @@ const TRANSLATIONS = {
       pin_explained_block2:
         "Dette fungerer bedst med <b>store kontekstmodeller</b> eller små filer, der er kritiske for dens vidensbase.",
       pin_explained_block3:
-        "Hvis du ikke får de svar, du ønsker fra AnythingLLM som standard, er fastlåsning en fremragende måde at få svar af højere kvalitet med et enkelt klik.",
+        "Hvis du ikke får de svar, du ønsker fra InteplastLLM som standard, er fastlåsning en fremragende måde at få svar af højere kvalitet med et enkelt klik.",
       accept: "Okay, jeg har forstået",
     },
     watching: {

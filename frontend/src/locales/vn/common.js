@@ -118,11 +118,11 @@ const TRANSLATIONS = {
   },
   welcomeMessage: {
     part1:
-      "Chào mừng đến với AnythingLLM, AnythingLLM is an open-source AI tool by Mintplex Labs that turns anything into a trained chatbot you can query and chat with. AnythingLLM is a BYOK (bring-your-own-keys) software so there is no subscription, fee, or charges for this software outside of the services you want to use with it.",
+      "Chào mừng đến với AnythingLLM, InteplastLLM is an open-source AI tool by Mintplex Labs that turns anything into a trained chatbot you can query and chat with. InteplastLLM is a BYOK (bring-your-own-keys) software so there is no subscription, fee, or charges for this software outside of the services you want to use with it.",
     part2:
-      "AnythingLLM is the easiest way to put powerful AI products like OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB, and other services together in a neat package with no fuss to increase your productivity by 100x.",
+      "InteplastLLM is the easiest way to put powerful AI products like OpenAi, GPT-4, LangChain, PineconeDB, ChromaDB, and other services together in a neat package with no fuss to increase your productivity by 100x.",
     part3:
-      "AnythingLLM can run totally locally on your machine with little overhead you wont even notice it's there! No GPU needed. Cloud and on-premises installation is available as well.\nThe AI tooling ecosystem gets more powerful everyday. AnythingLLM makes it easy to use.",
+      "InteplastLLM can run totally locally on your machine with little overhead you wont even notice it's there! No GPU needed. Cloud and on-premises installation is available as well.\nThe AI tooling ecosystem gets more powerful everyday. InteplastLLM makes it easy to use.",
     githubIssue: "Create an issue on GitHub",
     user1: "How do I get started?!",
     part4:
@@ -131,7 +131,7 @@ const TRANSLATIONS = {
     user2:
       "Is this like an AI dropbox or something? What about chatting? It is a chatbot isn't it?",
     part5:
-      "AnythingLLM is more than a smarter Dropbox.\n\nAnythingLLM offers two ways of talking with your data:\n\n<i>Query:</i> Your chats will return data or inferences found with the documents in your workspace it has access to. Adding more documents to the Workspace make it smarter! \n\n<i>Conversational:</i> Your documents + your on-going chat history both contribute to the LLM knowledge at the same time. Great for appending real-time text-based info or corrections and misunderstandings the LLM might have. \n\nYou can toggle between either mode \n<i>in the middle of chatting!</i>",
+      "InteplastLLM is more than a smarter Dropbox.\n\nAnythingLLM offers two ways of talking with your data:\n\n<i>Query:</i> Your chats will return data or inferences found with the documents in your workspace it has access to. Adding more documents to the Workspace make it smarter! \n\n<i>Conversational:</i> Your documents + your on-going chat history both contribute to the LLM knowledge at the same time. Great for appending real-time text-based info or corrections and misunderstandings the LLM might have. \n\nYou can toggle between either mode \n<i>in the middle of chatting!</i>",
     user3: "Wow, this sounds amazing, let me try it out already!",
     part6: "Have Fun!",
     starOnGitHub: "Star on GitHub",
@@ -350,7 +350,7 @@ const TRANSLATIONS = {
   api: {
     title: "Khóa API",
     description:
-      "API keys allow the holder to programmatically access and manage this AnythingLLM instance.",
+      "API keys allow the holder to programmatically access and manage this InteplastLLM instance.",
     link: "Read the API documentation",
     generate: "Generate New API Key",
     table: {
@@ -362,7 +362,7 @@ const TRANSLATIONS = {
   llm: {
     title: "LLM Preference",
     description:
-      "These are the credentials and settings for your preferred LLM chat & embedding provider. Its important these keys are current and correct or else AnythingLLM will not function properly.",
+      "These are the credentials and settings for your preferred LLM chat & embedding provider. Its important these keys are current and correct or else InteplastLLM will not function properly.",
     provider: "LLM Provider",
     providers: {
       azure_openai: {
@@ -382,7 +382,7 @@ const TRANSLATIONS = {
       "These are the credentials and settings for your preferred transcription model provider. Its important these keys are current and correct or else media files and audio will not transcribe.",
     provider: "Chuyển đổi giọng nói Provider",
     "warn-start":
-      "Using the local whisper model on machines with limited RAM or CPU can stall AnythingLLM when processing media files.",
+      "Using the local whisper model on machines with limited RAM or CPU can stall InteplastLLM when processing media files.",
     "warn-recommend":
       "We recommend at least 2GB of RAM and upload files <10Mb.",
     "warn-end":
@@ -397,7 +397,7 @@ const TRANSLATIONS = {
     provider: {
       title: "Embedding Provider",
       description:
-        "There is no set up required when using AnythingLLM's native embedding engine.",
+        "There is no set up required when using InteplastLLM's native embedding engine.",
     },
   },
   text: {
@@ -424,7 +424,7 @@ const TRANSLATIONS = {
   vector: {
     title: "Cơ sở dữ liệu Vector",
     description:
-      "These are the credentials and settings for how your AnythingLLM instance will function. It's important these keys are current and correct.",
+      "These are the credentials and settings for how your InteplastLLM instance will function. It's important these keys are current and correct.",
     provider: {
       title: "Cơ sở dữ liệu Vector Provider",
       description: "There is no configuration needed for LanceDB.",
@@ -470,7 +470,7 @@ const TRANSLATIONS = {
     password: {
       title: "Mật khẩu Protection",
       description:
-        "Protect your AnythingLLM instance with a password. If you forget this there is no recovery method so ensure you save this password.",
+        "Protect your InteplastLLM instance with a password. If you forget this there is no recovery method so ensure you save this password.",
     },
     instance: {
       title: "Mật khẩu Protect Instance",
@@ -493,7 +493,7 @@ const TRANSLATIONS = {
   privacy: {
     title: "Quyền riêng tư & Dữ liệu-Handling",
     description:
-      "This is your configuration for how connected third party providers and AnythingLLM handle your data.",
+      "This is your configuration for how connected third party providers and InteplastLLM handle your data.",
     llm: "LLM Selection",
     embedding: "Tùy chọn nhúng",
     vector: "Cơ sở dữ liệu Vector",
