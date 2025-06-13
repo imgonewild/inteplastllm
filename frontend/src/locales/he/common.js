@@ -431,8 +431,7 @@ const TRANSLATIONS = {
     table: {
       workspace: "סביבת עבודה",
       chats: "שיחות שנשלחו",
-      active: "תחומים פעילים",
-      created: null,
+      Active: "תחומים פעילים",
     },
   },
   "embed-chats": {

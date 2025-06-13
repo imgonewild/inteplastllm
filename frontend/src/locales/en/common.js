@@ -663,13 +663,12 @@ const TRANSLATIONS = {
     table: {
       workspace: "Workspace",
       chats: "Sent Chats",
-      active: "Active Domains",
-      created: "Created",
+      Active: "Active Domains",
     },
   },
 
   "embed-chats": {
-    title: "Embed Chat History",
+    title: "Embed Chats",
     export: "Export",
     description:
       "These are all the recorded chats and messages from any embed that you have published.",

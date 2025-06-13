@@ -423,8 +423,7 @@ const TRANSLATIONS = {
     table: {
       workspace: "工作區",
       chats: "已傳送對話",
-      active: "已啟用網域",
-      created: null,
+      Active: "已啟用網域",
     },
   },
   "embed-chats": {

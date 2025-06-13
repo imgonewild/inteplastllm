@@ -348,8 +348,14 @@ const SidebarOptions = ({ user = null, t }) => (
           childOptions={[
             {
               hidden: !canViewChatHistory,
+              btnText: t("settings.embed-chats"),
+              href: paths.settings.embedChats(),
+              flex: true,
+              roles: ["admin"],
+            },
+            {
               btnText: t("settings.embeds"),
-              href: paths.settings.embedChatWidgets(),
+              href: paths.settings.embedSetup(),
               flex: true,
               roles: ["admin"],
             },

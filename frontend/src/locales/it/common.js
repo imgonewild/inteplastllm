@@ -442,8 +442,7 @@ const TRANSLATIONS = {
     table: {
       workspace: "Area di lavoro",
       chats: "Chat inviate",
-      active: "Domini attivi",
-      created: null,
+      Active: "Domini attivi",
     },
   },
   "embed-chats": {

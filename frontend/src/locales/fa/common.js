@@ -436,8 +436,7 @@ const TRANSLATIONS = {
     table: {
       workspace: "فضای کاری",
       chats: "گفتگوهای ارسال شده",
-      active: "دامنه‌های فعال",
-      created: null,
+      Active: "دامنه‌های فعال",
     },
   },
   "embed-chats": {

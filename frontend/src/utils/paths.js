@@ -147,8 +147,11 @@ export default {
     privacy: () => {
       return "/settings/privacy";
     },
-    embedChatWidgets: () => {
-      return `/settings/embed-chat-widgets`;
+    embedSetup: () => {
+      return `/settings/embed-config`;
+    },
+    embedChats: () => {
+      return `/settings/embed-chats`;
     },
     browserExtension: () => {
       return `/settings/browser-extension`;
