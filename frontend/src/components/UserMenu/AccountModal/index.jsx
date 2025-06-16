@@ -185,7 +185,7 @@ export default function AccountModal({ user, hideModal }) {
               </div>
               <div className="flex gap-x-16">
                 <div className="flex flex-col gap-y-6">
-                  <ThemePreference />
+                  {/* <ThemePreference /> */}
                   <LanguagePreference />
                 </div>
                 <div className="flex flex-col gap-y-6">
