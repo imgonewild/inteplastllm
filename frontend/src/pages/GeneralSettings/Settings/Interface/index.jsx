@@ -27,7 +27,7 @@ export default function InterfaceSettings() {
               {t("customization.interface.description")}
             </p>
           </div>
-          <ThemePreference />
+          {/* <ThemePreference /> */}
           <LanguagePreference />
           <MessageDirection />
           <ShowScrollbar />
