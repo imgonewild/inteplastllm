@@ -27,14 +27,14 @@ export function LogoProvider({ children }) {
       } else {
         localStorage.getItem("theme") !== "default"
           ? setLogo(AnythingLLMDark)
-          : setLogo(AnythingLLM);
+          : setLogo(InteplastLLM);
         setLoginLogo(DefaultLoginLogo);
         setIsCustomLogo(false);
       }
     } catch (err) {
       localStorage.getItem("theme") !== "default"
         ? setLogo(AnythingLLMDark)
-        : setLogo(AnythingLLM);
+        : setLogo(InteplastLLM);
       setLoginLogo(DefaultLoginLogo);
       setIsCustomLogo(false);
       console.error("Failed to fetch logo:", err);

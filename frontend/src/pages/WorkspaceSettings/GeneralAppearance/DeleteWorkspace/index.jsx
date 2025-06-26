@@ -29,7 +29,7 @@ export default function DeleteWorkspace({ workspace }) {
     }
 
     workspace.slug === slug
-      ? (window.location = paths.home())
+      ? (window.location = "/llm" )
       : window.location.reload();
   };
   return (

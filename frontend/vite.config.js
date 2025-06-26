@@ -9,6 +9,7 @@ dns.setDefaultResultOrder("verbatim")
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/llm/',
   assetsInclude: [
     './public/piper/ort-wasm-simd-threaded.wasm',
     './public/piper/piper_phonemize.wasm',
@@ -19,7 +20,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: "localhost"
+    host: "localhost",
   },
   define: {
     "process.env": process.env

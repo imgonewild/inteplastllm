@@ -84,7 +84,7 @@ export default {
       },
     },
     thread: (wsSlug, threadSlug) => {
-      return `/workspace/${wsSlug}/t/${threadSlug}`;
+      return `/llm/workspace/${wsSlug}/t/${threadSlug}`;
     },
   },
   apiDocs: () => {

@@ -346,6 +346,7 @@ const System = {
     return { appName: customAppName, error: null };
   },
   fetchLogo: async function () {
+    console.log(fullApiUrl)
     const url = new URL(`${fullApiUrl()}/system/logo`);
     url.searchParams.append(
       "theme",

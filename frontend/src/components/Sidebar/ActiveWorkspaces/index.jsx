@@ -22,7 +22,7 @@ export default function ActiveWorkspaces() {
   const [selectedWs, setSelectedWs] = useState(null);
   const { showing, showModal, hideModal } = useManageWorkspaceModal();
   const { user } = useUser();
-  const isInWorkspaceSettings = !!useMatch("/workspace/:slug/settings/:tab");
+  const isInWorkspaceSettings = !!useMatch("/llm/workspace/:slug/settings/:tab");
 
   useEffect(() => {
     async function getWorkspaces() {
@@ -105,7 +105,7 @@ export default function ActiveWorkspaces() {
                           href={
                             isActive
                               ? null
-                              : paths.workspace.chat(workspace.slug)
+                              : "/llm" + paths.workspace.chat(workspace.slug)
                           }
                           aria-current={isActive ? "page" : ""}
                           className={`

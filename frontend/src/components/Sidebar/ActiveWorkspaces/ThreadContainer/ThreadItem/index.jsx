@@ -27,7 +27,7 @@ export default function ThreadItem({
   const optionsContainer = useRef(null);
   const [showOptions, setShowOptions] = useState(false);
   const linkTo = !thread.slug
-    ? paths.workspace.chat(slug)
+    ? "/llm" + paths.workspace.chat(slug)
     : paths.workspace.thread(slug, thread.slug);
 
   return (
@@ -236,7 +236,7 @@ function OptionsMenu({
       onRemove(thread.id);
       // Redirect if deleting the active thread
       if (currentThreadSlug === thread.slug) {
-        window.location.href = paths.workspace.chat(workspace.slug);
+        window.location.href = "/llm" + paths.workspace.chat(workspace.slug);
       }
       return;
     }
