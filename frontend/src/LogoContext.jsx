@@ -25,16 +25,14 @@ export function LogoProvider({ children }) {
         setLoginLogo(isCustomLogo ? logoURL : DefaultLoginLogo);
         setIsCustomLogo(isCustomLogo);
       } else {
-        localStorage.getItem("theme") !== "default"
-          ? setLogo(AnythingLLMDark)
-          : setLogo(InteplastLLM);
+        // Use dark logo (light theme design) as base for both themes
+        setLogo(AnythingLLMDark);
         setLoginLogo(DefaultLoginLogo);
         setIsCustomLogo(false);
       }
     } catch (err) {
-      localStorage.getItem("theme") !== "default"
-        ? setLogo(AnythingLLMDark)
-        : setLogo(InteplastLLM);
+      // Use dark logo (light theme design) as base for both themes
+      setLogo(AnythingLLMDark);
       setLoginLogo(DefaultLoginLogo);
       setIsCustomLogo(false);
       console.error("Failed to fetch logo:", err);

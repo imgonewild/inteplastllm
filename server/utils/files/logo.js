@@ -21,13 +21,13 @@ function validFilename(newFilename = "") {
 }
 
 /**
- * Shows the logo for the current theme. In dark mode, it shows the light logo
- * and vice versa.
+ * Shows the logo for the current theme. Uses the dark logo (light theme logo) as base
+ * for both themes with CSS contrast adjustments applied on frontend.
  * @param {boolean} darkMode - Whether the logo should be for dark mode.
  * @returns {string} The filename of the logo.
  */
 function getDefaultFilename(darkMode = true) {
-  return darkMode ? LOGO_FILENAME : LOGO_FILENAME_DARK;
+  return LOGO_FILENAME_DARK; // Use dark logo (light theme design) as base for both themes
 }
 
 async function determineLogoFilepath(defaultFilename = LOGO_FILENAME) {

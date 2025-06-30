@@ -1079,3 +1079,18 @@ does not extend the close button beyond the viewport. */
   -webkit-animation: fadein 0.3s linear forwards;
   animation: fadein 0.3s linear forwards;
 }
+
+/* Logo theme contrast classes */
+.logo-contrast {
+  transition: filter 0.3s ease;
+}
+
+/* Apply blue color filter for dark theme to make light logo design blue */
+:root .logo-contrast {
+  filter: invert(1) sepia(1) hue-rotate(190deg) saturate(3) brightness(0.9);
+}
+
+/* Keep original appearance for light theme */
+[data-theme="light"] .logo-contrast {
+  filter: none;
+}
