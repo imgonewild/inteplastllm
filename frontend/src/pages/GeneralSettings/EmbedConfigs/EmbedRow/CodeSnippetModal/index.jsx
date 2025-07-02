@@ -52,7 +52,7 @@ https://github.com/Mintplex-Labs/anything-llm/tree/master/embed/README.md
 <script
   data-embed-id="${embed.uuid}"
   data-base-api-url="${serverHost}/api/embed"
-  src="${scriptHost}/embed/anythingllm-chat-widget.min.js">
+  src="${scriptHost}/llm/embed/anythingllm-chat-widget.min.js">
 </script>
 <!-- InteplastLLM (https://anythingllm.com) -->
 `;
@@ -61,10 +61,10 @@ https://github.com/Mintplex-Labs/anything-llm/tree/master/embed/README.md
 const ScriptTag = ({ embed }) => {
   const [copied, setCopied] = useState(false);
   const scriptHost = import.meta.env.DEV
-    ? "http://localhost:3000"
+    ? "https://wpjk.inteplast.com"
     : window.location.origin;
   const serverHost = import.meta.env.DEV
-    ? "http://localhost:3001"
+    ? "https://wpjk.inteplast.com"
     : window.location.origin;
   const snippet = createScriptTagSnippet(embed, scriptHost, serverHost);
   const theme =
