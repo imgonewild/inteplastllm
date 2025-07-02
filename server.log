@@ -1,0 +1,338 @@
+yarn run v1.22.22
+$ cd server && yarn start
+$ cross-env NODE_ENV=production node index.js
+[36m[backend][0m [32minfo[39m: [36m[EncryptionManager][0m Loaded existing key & salt for encrypting arbitrary data.
+[36m[backend][0m [32minfo[39m: [35m[TokenManager][0m Initialized new TokenManager instance for model: gpt-3.5-turbo
+[36m[backend][0m [32minfo[39m: [33m[ContextWindowFinder][0m Pulling remote model map...
+[36m[backend][0m [32minfo[39m: [35m[TokenManager][0m Returning existing instance for model: gpt-3.5-turbo
+[36m[backend][0m [32minfo[39m: [32m[TELEMETRY ENABLED][0m Anonymous Telemetry enabled. Telemetry helps Mintplex Labs Inc improve InteplastLLM.
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.upsert()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: FAILED TO UPDATE SYSTEM SETTINGS 
+Invalid `prisma.system_settings.upsert()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.upsert()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: FAILED TO UPDATE SYSTEM SETTINGS 
+Invalid `prisma.system_settings.upsert()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: [32m[TELEMETRY SENT][0m {"event":"server_boot","distinctId":"b7a704f4-4ecc-4a37-b1e4-1cea5fd4e939","properties":{"commit":"91ecc3f9b914505d33569c15574ef77d67119cdd","runtime":"production"}}
+[36m[backend][0m [32minfo[39m: [36m[CommunicationKey][0m RSA key pair generated for signed payloads within InteplastLLM services.
+[36m[backend][0m [32minfo[39m: [36m[EncryptionManager][0m Loaded existing key & salt for encrypting arbitrary data.
+[36m[backend][0m [32minfo[39m: Primary server in HTTP mode listening on port 3001
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: [36m[BackgroundWorkerService][0m Feature is not enabled and will not be started.
+[36m[backend][0m [32minfo[39m: [33m[ContextWindowFinder][0m Remote model map synced and cached
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.workspace_documents.count()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: FAILED TO COUNT DOCUMENTS. 
+Invalid `prisma.workspace_documents.count()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [32minfo[39m: prisma:error 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+[36m[backend][0m [31merror[39m: 
+Invalid `prisma.system_settings.findFirst()` invocation:
+
+
+Prisma Client could not locate the Query Engine for runtime "debian-openssl-3.0.x".
+
+This happened because Prisma Client was generated for "windows", but the actual deployment required "debian-openssl-3.0.x".
+Add "debian-openssl-3.0.x" to `binaryTargets` in the "schema.prisma" file and run `prisma generate` after saving it:
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+The following locations have been searched:
+  /mnt/c/Git/anything-llm/server/node_modules/.prisma/client
+  /mnt/c/Git/anything-llm/server/node_modules/@prisma/client
+  C:\Git\anything-llm\server\node_modules\@prisma\client
+  /tmp/prisma-engines
+  /mnt/c/Git/anything-llm/server/prisma
+error Command failed with signal "SIGTERM".
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
