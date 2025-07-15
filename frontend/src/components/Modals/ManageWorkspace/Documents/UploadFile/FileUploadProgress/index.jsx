@@ -86,7 +86,9 @@ function FileUploadProgressComponent({
             {truncate(file.name, 30)}
           </p>
           <p className="text-red-100 light:text-red-600 text-xs font-medium">
-            {reason || "this file failed to upload"}
+            {reason === "file-too-large"
+              ? "File too large (max 100MB)"
+              : reason || "this file failed to upload"}
           </p>
         </div>
       </div>

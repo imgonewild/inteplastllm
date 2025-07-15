@@ -127,8 +127,8 @@ export default function CommunityHubAuthentication() {
             </div>
             <p className="text-xs leading-[18px] font-base text-theme-text-secondary">
               Connecting your InteplastLLM Community Hub account allows you to
-              access your <b>private</b> InteplastLLM Community Hub items as well
-              as upload your own items to the InteplastLLM Community Hub.
+              access your <b>private</b> InteplastLLM Community Hub items as
+              well as upload your own items to the InteplastLLM Community Hub.
             </p>
           </div>
 

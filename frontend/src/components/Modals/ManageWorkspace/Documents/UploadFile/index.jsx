@@ -20,6 +20,9 @@ export default function UploadFile({
   const [files, setFiles] = useState([]);
   const [fetchingUrl, setFetchingUrl] = useState(false);
 
+  // 100MB file size limit
+  const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100MB in bytes
+
   const handleSendLink = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -49,12 +52,30 @@ export default function UploadFile({
   const handleUploadError = () => debouncedFetchKeys();
 
   const onDrop = async (acceptedFiles, rejections) => {
-    const newAccepted = acceptedFiles.map((file) => {
-      return {
-        uid: v4(),
-        file,
-      };
+    // Check file sizes and separate oversized files
+    const processedAccepted = [];
+    const processedRejected = [];
+
+    acceptedFiles.forEach((file) => {
+      if (file.size > MAX_FILE_SIZE) {
+        processedRejected.push({
+          uid: v4(),
+          file,
+          rejected: true,
+          reason: "file-too-large",
+        });
+        showToast(
+          `File "${file.name}" is too large. Maximum file size is 100MB.`,
+          "error"
+        );
+      } else {
+        processedAccepted.push({
+          uid: v4(),
+          file,
+        });
+      }
     });
+
     const newRejected = rejections.map((file) => {
       return {
         uid: v4(),
@@ -63,7 +84,8 @@ export default function UploadFile({
         reason: file.errors[0].code,
       };
     });
-    setFiles([...newAccepted, ...newRejected]);
+
+    setFiles([...processedAccepted, ...processedRejected, ...newRejected]);
   };
 
   useEffect(() => {
@@ -77,6 +99,7 @@ export default function UploadFile({
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     disabled: !ready,
+    maxSize: MAX_FILE_SIZE,
   });
 
   return (
@@ -108,6 +131,9 @@ export default function UploadFile({
             </div>
             <div className="text-white text-opacity-60 text-xs font-medium py-1">
               {t("connectors.upload.file-types")}
+            </div>
+            <div className="text-white text-opacity-50 text-xs font-medium py-1">
+              Maximum file size: 100MB
             </div>
           </div>
         ) : (

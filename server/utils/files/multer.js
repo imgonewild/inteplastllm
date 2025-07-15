@@ -12,8 +12,12 @@ const fileUploadStorage = multer.diskStorage({
   destination: function (_, __, cb) {
     const uploadOutput =
       process.env.NODE_ENV === "development"
-        ? path.resolve(__dirname, `../../../collector/hotdir`).replace(/\\/g, '/')
-        : path.resolve(process.env.STORAGE_DIR, `../../collector/hotdir`).replace(/\\/g, '/');
+        ? path
+            .resolve(__dirname, `../../../collector/hotdir`)
+            .replace(/\\/g, "/")
+        : path
+            .resolve(process.env.STORAGE_DIR, `../../collector/hotdir`)
+            .replace(/\\/g, "/");
     cb(null, uploadOutput);
   },
   filename: function (_, file, cb) {
@@ -32,8 +36,12 @@ const fileAPIUploadStorage = multer.diskStorage({
   destination: function (_, __, cb) {
     const uploadOutput =
       process.env.NODE_ENV === "development"
-        ? path.resolve(__dirname, `../../../collector/hotdir`).replace(/\\/g, '/')
-        : path.resolve(process.env.STORAGE_DIR, `../../collector/hotdir`).replace(/\\/g, '/');
+        ? path
+            .resolve(__dirname, `../../../collector/hotdir`)
+            .replace(/\\/g, "/")
+        : path
+            .resolve(process.env.STORAGE_DIR, `../../collector/hotdir`)
+            .replace(/\\/g, "/");
     cb(null, uploadOutput);
   },
   filename: function (_, file, cb) {
@@ -90,14 +98,21 @@ const pfpUploadStorage = multer.diskStorage({
  * @param {NextFunction} next
  */
 function handleFileUpload(request, response, next) {
-  const upload = multer({ storage: fileUploadStorage }).single("file");
+  const upload = multer({
+    storage: fileUploadStorage,
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  }).single("file");
   upload(request, response, function (err) {
     if (err) {
+      let errorMessage = `Invalid file upload. ${err.message}`;
+      if (err.code === "LIMIT_FILE_SIZE") {
+        errorMessage = "File too large. Maximum file size is 100MB.";
+      }
       response
         .status(500)
         .json({
           success: false,
-          error: `Invalid file upload. ${err.message}`,
+          error: errorMessage,
         })
         .end();
       return;
@@ -114,14 +129,21 @@ function handleFileUpload(request, response, next) {
  * @param {NextFunction} next
  */
 function handleAPIFileUpload(request, response, next) {
-  const upload = multer({ storage: fileAPIUploadStorage }).single("file");
+  const upload = multer({
+    storage: fileAPIUploadStorage,
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  }).single("file");
   upload(request, response, function (err) {
     if (err) {
+      let errorMessage = `Invalid file upload. ${err.message}`;
+      if (err.code === "LIMIT_FILE_SIZE") {
+        errorMessage = "File too large. Maximum file size is 100MB.";
+      }
       response
         .status(500)
         .json({
           success: false,
-          error: `Invalid file upload. ${err.message}`,
+          error: errorMessage,
         })
         .end();
       return;
@@ -134,14 +156,21 @@ function handleAPIFileUpload(request, response, next) {
  * Handle logo asset uploads
  */
 function handleAssetUpload(request, response, next) {
-  const upload = multer({ storage: assetUploadStorage }).single("logo");
+  const upload = multer({
+    storage: assetUploadStorage,
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  }).single("logo");
   upload(request, response, function (err) {
     if (err) {
+      let errorMessage = `Invalid file upload. ${err.message}`;
+      if (err.code === "LIMIT_FILE_SIZE") {
+        errorMessage = "File too large. Maximum file size is 100MB.";
+      }
       response
         .status(500)
         .json({
           success: false,
-          error: `Invalid file upload. ${err.message}`,
+          error: errorMessage,
         })
         .end();
       return;
@@ -154,14 +183,21 @@ function handleAssetUpload(request, response, next) {
  * Handle PFP file upload as logos
  */
 function handlePfpUpload(request, response, next) {
-  const upload = multer({ storage: pfpUploadStorage }).single("file");
+  const upload = multer({
+    storage: pfpUploadStorage,
+    limits: { fileSize: 100 * 1024 * 1024 }, // 100MB limit
+  }).single("file");
   upload(request, response, function (err) {
     if (err) {
+      let errorMessage = `Invalid file upload. ${err.message}`;
+      if (err.code === "LIMIT_FILE_SIZE") {
+        errorMessage = "File too large. Maximum file size is 100MB.";
+      }
       response
         .status(500)
         .json({
           success: false,
-          error: `Invalid file upload. ${err.message}`,
+          error: errorMessage,
         })
         .end();
       return;

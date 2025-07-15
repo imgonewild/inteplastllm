@@ -22,7 +22,9 @@ export default function ActiveWorkspaces() {
   const [selectedWs, setSelectedWs] = useState(null);
   const { showing, showModal, hideModal } = useManageWorkspaceModal();
   const { user } = useUser();
-  const isInWorkspaceSettings = !!useMatch("/llm/workspace/:slug/settings/:tab");
+  const isInWorkspaceSettings = !!useMatch(
+    "/llm/workspace/:slug/settings/:tab"
+  );
 
   useEffect(() => {
     async function getWorkspaces() {

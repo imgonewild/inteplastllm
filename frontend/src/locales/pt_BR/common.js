@@ -52,7 +52,8 @@ const TRANSLATIONS = {
     },
     workspace: {
       title: "Crie seu primeiro workspace",
-      description: "Crie seu primeiro workspace e comece a usar o InteplastLLM.",
+      description:
+        "Crie seu primeiro workspace e comece a usar o InteplastLLM.",
     },
   },
   common: {

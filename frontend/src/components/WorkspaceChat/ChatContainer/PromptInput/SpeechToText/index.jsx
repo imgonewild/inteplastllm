@@ -43,7 +43,7 @@ export default function SpeechToText({ sendCommand }) {
       continuous: browserSupportsContinuousListening,
       language: window?.navigator?.language ?? "en-US",
     });
-    console.log('Start listening to speech');
+    console.log("Start listening to speech");
   }
 
   function endSTTSession() {
