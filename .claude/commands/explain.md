@@ -1,1 +1,0 @@
-scan out the whole codebase and explain it to me in an easy way

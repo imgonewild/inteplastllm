@@ -1,12 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(rg:*)",
-      "Bash(grep:*)",
-      "Bash(ls:*)",
-      "Bash(find:*)",
-      "Bash(git submodule:*)",
-      "Bash(yarn install)"
+      "Bash(curl:*)"
     ],
     "deny": []
   }
