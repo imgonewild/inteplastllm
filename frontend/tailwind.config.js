@@ -16,6 +16,11 @@ export default {
   },
   theme: {
     extend: {
+      borderRadius: {
+        '4xl': '2rem',
+        '5xl': '2.5rem',
+        '6xl': '3rem',
+      },
       rotate: {
         "270": "270deg",
         "360": "360deg"

@@ -7,7 +7,7 @@ const UserIcon = memo(({ role }) => {
   const { pfp } = usePfp();
 
   return (
-    <div className="relative w-[35px] h-[35px] rounded-full flex-shrink-0 overflow-hidden">
+    <div className="relative w-[35px] h-[35px] rounded-full flex-shrink-0 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200">
       {role === "user" && <RenderUserPfp pfp={pfp} />}
       {role !== "user" && (
         <img

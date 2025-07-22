@@ -1094,3 +1094,150 @@ does not extend the close button beyond the viewport. */
 [data-theme="light"] .logo-contrast {
   filter: none;
 }
+
+/* Chat Bubble Styles */
+.bubble-message {
+  position: relative;
+  animation: bubble-appear 0.3s ease-out forwards;
+}
+
+@keyframes bubble-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Bubble tails using pseudo-elements */
+.bubble-tail-user::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 12px solid #2563eb; /* blue-600 */
+  border-bottom: 12px solid transparent;
+  border-top: 2px solid transparent;
+}
+
+.bubble-tail-assistant::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-right: 12px solid var(--theme-bg-chat-input);
+  border-bottom: 12px solid transparent;
+  border-top: 2px solid transparent;
+}
+
+/* Light theme bubble tails */
+[data-theme="light"] .bubble-tail-user::before {
+  border-left-color: #3b82f6; /* blue-500 */
+}
+
+[data-theme="light"] .bubble-tail-assistant::before {
+  border-right-color: #e5e7eb; /* gray-200 */
+}
+
+/* Bubble hover effects */
+.bubble-message:hover {
+  transform: translateY(-1px);
+  transition: transform 0.2s ease-out;
+}
+
+.bubble-message {
+  transition: transform 0.2s ease-out;
+}
+
+/* Enhanced message text styling within bubbles */
+.bubble-user .markdown,
+.bubble-user .markdown * {
+  color: white !important;
+}
+
+.bubble-assistant .markdown,
+.bubble-assistant .markdown * {
+  color: var(--theme-text-primary) !important;
+}
+
+[data-theme="light"] .bubble-assistant .markdown,
+[data-theme="light"] .bubble-assistant .markdown * {
+  color: #374151 !important; /* gray-700 */
+}
+
+/* Enhanced bubble shadows and spacing */
+.bubble-message .rounded-2xl {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .bubble-message .rounded-2xl {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+/* Smooth transitions for interactive elements */
+.bubble-message,
+.bubble-tail-user,
+.bubble-tail-assistant {
+  transition: all 0.2s ease-out;
+}
+
+/* Responsive bubble sizing */
+@media (max-width: 768px) {
+  .bubble-message .rounded-2xl {
+    padding: 12px 16px;
+    border-radius: 18px;
+  }
+  
+  .bubble-tail-user::before,
+  .bubble-tail-assistant::before {
+    border-width: 8px;
+    border-top-width: 1px;
+  }
+}
+
+/* Layout fixes and consistency improvements */
+.bubble-message {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Ensure proper positioning of bubble tails */
+.bubble-tail-user,
+.bubble-tail-assistant {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Fix flex container issues */
+.chat-message-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+/* Prevent layout shift */
+.profile-image-container {
+  min-width: 35px;
+  width: 35px;
+  height: 35px;
+}
+
+/* Ensure actions and citations don't interfere with layout */
+.message-actions {
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.group:hover .message-actions {
+  opacity: 1;
+}

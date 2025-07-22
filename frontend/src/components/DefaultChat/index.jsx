@@ -236,8 +236,8 @@ export default function DefaultChatContainer() {
 
 function MessageContainer({ children }) {
   return (
-    <div className="flex justify-center items-end w-full">
-      <div className="py-6 px-4 w-full flex gap-x-5 md:max-w-[80%] flex-col">
+    <div className="w-full py-6 px-4">
+      <div className="flex w-full justify-start">
         {children}
       </div>
     </div>
@@ -245,13 +245,28 @@ function MessageContainer({ children }) {
 }
 
 function MessageContent({ children, alignmentCls = "" }) {
-  return <div className={`flex gap-x-5 ${alignmentCls}`}>{children}</div>;
+  return (
+    <div className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] flex-row ${alignmentCls}`}>
+      <div className="flex-shrink-0 self-end">
+        {children[0]}
+      </div>
+      <div className="flex flex-col min-w-0">
+        {children.slice(1)}
+      </div>
+    </div>
+  );
 }
 
 function MessageText({ children }) {
   return (
-    <span className="text-white/80 light:text-theme-text-primary font-light text-[14px] flex flex-col gap-y-1 mt-2">
-      {children}
-    </span>
+    <div className="relative bubble-message bubble-assistant">
+      <div className="bg-theme-bg-chat-input light:bg-gray-200 text-theme-text-primary light:text-gray-700 p-4 rounded-2xl shadow-lg rounded-bl-md break-words">
+        <span className="font-light text-[14px] flex flex-col gap-y-1">
+          {children}
+        </span>
+      </div>
+      {/* Bubble tail */}
+      <div className="absolute bottom-0 left-0 transform -translate-x-2 w-4 h-4 bubble-tail-assistant"></div>
+    </div>
   );
 }

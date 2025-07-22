@@ -71,49 +71,75 @@ const HistoricalMessage = ({
 
   if (completeDelete) return null;
 
+  const isUser = role === "user";
+
   return (
     <div
       key={uuid}
       onAnimationEnd={onEndAnimation}
       className={`${
         isDeleted ? "animate-remove" : ""
-      } flex justify-center items-end w-full group bg-theme-bg-chat`}
+      } w-full group bg-theme-bg-chat py-6 px-4`}
     >
-      <div className="py-8 px-4 w-full flex gap-x-5 md:max-w-[80%] flex-col">
-        <div className={`flex gap-x-5 ${alignmentCls}`}>
-          <div className="flex flex-col items-center">
+      {/* Main message container */}
+      <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'}`}>
+        <div className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+          {/* Profile image container */}
+          <div className="flex-shrink-0 self-end">
             <ProfileImage role={role} workspace={workspace} />
-            <div className="mt-1 -mb-10">
-              {role === "assistant" && (
+          </div>
+          
+          {/* Message content */}
+          <div className="flex flex-col min-w-0">
+            {isEditing ? (
+              <EditMessageForm
+                role={role}
+                chatId={chatId}
+                message={message}
+                attachments={attachments}
+                adjustTextArea={adjustTextArea}
+                saveChanges={saveEditedMessage}
+              />
+            ) : (
+              <div className={`relative bubble-message ${isUser ? 'bubble-user' : 'bubble-assistant'}`}>
+                <div className={`p-4 rounded-2xl shadow-lg break-words ${
+                  isUser 
+                    ? 'bg-blue-600 light:bg-blue-500 text-white rounded-br-md' 
+                    : 'bg-theme-bg-chat-input light:bg-gray-200 text-theme-text-primary light:text-gray-700 rounded-bl-md'
+                }`}>
+                  <RenderChatContent
+                    role={role}
+                    message={message}
+                    expanded={isLastMessage}
+                  />
+                  <ChatAttachments attachments={attachments} />
+                </div>
+                {/* Bubble tail */}
+                <div className={`absolute bottom-0 w-4 h-4 ${
+                  isUser 
+                    ? 'right-0 transform translate-x-2 bubble-tail-user' 
+                    : 'left-0 transform -translate-x-2 bubble-tail-assistant'
+                }`}></div>
+              </div>
+            )}
+            
+            {/* TTS Button for assistant */}
+            {role === "assistant" && (
+              <div className={`mt-2 ${isUser ? 'flex justify-end' : 'flex justify-start'}`}>
                 <TTSMessage
                   slug={workspace?.slug}
                   chatId={chatId}
                   message={message}
                 />
-              )}
-            </div>
+              </div>
+            )}
           </div>
-          {isEditing ? (
-            <EditMessageForm
-              role={role}
-              chatId={chatId}
-              message={message}
-              attachments={attachments}
-              adjustTextArea={adjustTextArea}
-              saveChanges={saveEditedMessage}
-            />
-          ) : (
-            <div className="break-words">
-              <RenderChatContent
-                role={role}
-                message={message}
-                expanded={isLastMessage}
-              />
-              <ChatAttachments attachments={attachments} />
-            </div>
-          )}
         </div>
-        <div className="flex gap-x-5 ml-14">
+      </div>
+      
+      {/* Actions and Citations */}
+      <div className={`message-actions flex mt-3 ${isUser ? 'justify-end pr-12' : 'justify-start pl-12'}`}>
+        <div className={`flex flex-col gap-2 ${isUser ? 'items-end' : 'items-start'}`}>
           <Actions
             message={message}
             feedbackScore={feedbackScore}
@@ -127,8 +153,8 @@ const HistoricalMessage = ({
             metrics={metrics}
             alignmentCls={alignmentCls}
           />
+          {role === "assistant" && <Citations sources={sources} />}
         </div>
-        {role === "assistant" && <Citations sources={sources} />}
       </div>
     </div>
   );
@@ -137,7 +163,7 @@ const HistoricalMessage = ({
 function ProfileImage({ role, workspace }) {
   if (role === "assistant" && workspace.pfpUrl) {
     return (
-      <div className="relative w-[35px] h-[35px] rounded-full flex-shrink-0 overflow-hidden">
+      <div className="relative w-[35px] h-[35px] rounded-full flex-shrink-0 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-200">
         <img
           src={workspace.pfpUrl}
           alt="Workspace profile picture"
