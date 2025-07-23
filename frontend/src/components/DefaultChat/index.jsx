@@ -237,22 +237,18 @@ export default function DefaultChatContainer() {
 function MessageContainer({ children }) {
   return (
     <div className="w-full py-6 px-4">
-      <div className="flex w-full justify-start">
-        {children}
-      </div>
+      <div className="flex w-full justify-start">{children}</div>
     </div>
   );
 }
 
 function MessageContent({ children, alignmentCls = "" }) {
   return (
-    <div className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] flex-row ${alignmentCls}`}>
-      <div className="flex-shrink-0 self-end">
-        {children[0]}
-      </div>
-      <div className="flex flex-col min-w-0">
-        {children.slice(1)}
-      </div>
+    <div
+      className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] flex-row ${alignmentCls}`}
+    >
+      <div className="flex-shrink-0 self-end">{children[0]}</div>
+      <div className="flex flex-col min-w-0">{children.slice(1)}</div>
     </div>
   );
 }

@@ -9,7 +9,6 @@ import { v4 } from "uuid";
 import DOMPurify from "@/utils/chat/purify";
 import { EditMessageForm, useEditMessage } from "./Actions/EditMessage";
 import { useWatchDeleteMessage } from "./Actions/DeleteMessage";
-import TTSMessage from "./Actions/TTSButton";
 import {
   THOUGHT_REGEX_CLOSE,
   THOUGHT_REGEX_COMPLETE,
@@ -82,13 +81,17 @@ const HistoricalMessage = ({
       } w-full group bg-theme-bg-chat py-6 px-4`}
     >
       {/* Main message container */}
-      <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'}`}>
-        <div className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] ${isUser ? 'flex-row-reverse' : 'flex-row'}`}>
+      <div
+        className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}
+      >
+        <div
+          className={`flex gap-x-3 max-w-[85%] md:max-w-[75%] ${isUser ? "flex-row-reverse" : "flex-row"}`}
+        >
           {/* Profile image container */}
           <div className="flex-shrink-0 self-end">
             <ProfileImage role={role} workspace={workspace} />
           </div>
-          
+
           {/* Message content */}
           <div className="flex flex-col min-w-0">
             {isEditing ? (
@@ -101,12 +104,16 @@ const HistoricalMessage = ({
                 saveChanges={saveEditedMessage}
               />
             ) : (
-              <div className={`relative bubble-message ${isUser ? 'bubble-user' : 'bubble-assistant'}`}>
-                <div className={`p-4 rounded-2xl shadow-lg break-words ${
-                  isUser 
-                    ? 'bg-blue-600 light:bg-blue-500 text-white rounded-br-md' 
-                    : 'bg-theme-bg-chat-input light:bg-gray-200 text-theme-text-primary light:text-gray-700 rounded-bl-md'
-                }`}>
+              <div
+                className={`relative bubble-message ${isUser ? "bubble-user" : "bubble-assistant"}`}
+              >
+                <div
+                  className={`p-4 rounded-2xl shadow-lg break-words ${
+                    isUser
+                      ? "bg-blue-600 light:bg-blue-500 text-white rounded-br-md"
+                      : "bg-theme-bg-chat-input light:bg-gray-200 text-theme-text-primary light:text-gray-700 rounded-bl-md"
+                  }`}
+                >
                   <RenderChatContent
                     role={role}
                     message={message}
@@ -115,31 +122,26 @@ const HistoricalMessage = ({
                   <ChatAttachments attachments={attachments} />
                 </div>
                 {/* Bubble tail */}
-                <div className={`absolute bottom-0 w-4 h-4 ${
-                  isUser 
-                    ? 'right-0 transform translate-x-2 bubble-tail-user' 
-                    : 'left-0 transform -translate-x-2 bubble-tail-assistant'
-                }`}></div>
-              </div>
-            )}
-            
-            {/* TTS Button for assistant */}
-            {role === "assistant" && (
-              <div className={`mt-2 ${isUser ? 'flex justify-end' : 'flex justify-start'}`}>
-                <TTSMessage
-                  slug={workspace?.slug}
-                  chatId={chatId}
-                  message={message}
-                />
+                <div
+                  className={`absolute bottom-0 w-4 h-4 ${
+                    isUser
+                      ? "right-0 transform translate-x-2 bubble-tail-user"
+                      : "left-0 transform -translate-x-2 bubble-tail-assistant"
+                  }`}
+                ></div>
               </div>
             )}
           </div>
         </div>
       </div>
-      
+
       {/* Actions and Citations */}
-      <div className={`message-actions flex mt-3 ${isUser ? 'justify-end pr-12' : 'justify-start pl-12'}`}>
-        <div className={`flex flex-col gap-2 ${isUser ? 'items-end' : 'items-start'}`}>
+      <div
+        className={`message-actions flex mt-3 ${isUser ? "justify-end pr-12" : "justify-start pl-12"}`}
+      >
+        <div
+          className={`flex flex-col gap-2 ${isUser ? "items-end" : "items-start"}`}
+        >
           <Actions
             message={message}
             feedbackScore={feedbackScore}

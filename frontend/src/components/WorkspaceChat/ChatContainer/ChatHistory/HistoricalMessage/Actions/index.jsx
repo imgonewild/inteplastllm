@@ -5,6 +5,7 @@ import Workspace from "@/models/workspace";
 import { EditMessageAction } from "./EditMessage";
 import RenderMetrics from "./RenderMetrics";
 import ActionMenu from "./ActionMenu";
+import TTSMessage from "./TTSButton";
 import { useTranslation } from "react-i18next";
 
 const Actions = ({
@@ -32,6 +33,9 @@ const Actions = ({
   return (
     <div className={`flex w-full justify-between items-center ${alignmentCls}`}>
       <div className="flex justify-start items-center gap-x-[8px]">
+        {role === "assistant" && (
+          <TTSMessage slug={slug} chatId={chatId} message={message} />
+        )}
         <CopyMessage message={message} />
         <div className="md:group-hover:opacity-100 transition-all duration-300 md:opacity-0 flex justify-start items-center gap-x-[8px]">
           <EditMessageAction
