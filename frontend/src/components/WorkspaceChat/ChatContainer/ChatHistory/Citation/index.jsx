@@ -14,6 +14,7 @@ import {
   YoutubeLogo,
   LinkSimple,
   GitlabLogo,
+  Eye,
 } from "@phosphor-icons/react";
 import ConfluenceLogo from "@/media/dataConnectors/confluence.png";
 import DrupalWikiLogo from "@/media/dataConnectors/drupalwiki.png";
@@ -22,6 +23,7 @@ import { toPercentString } from "@/utils/numbers";
 import { useTranslation } from "react-i18next";
 import pluralize from "pluralize";
 import useTextSize from "@/hooks/useTextSize";
+import DocumentViewer from "@/components/DocumentViewer";
 
 function combineLikeSources(sources) {
   const combined = {};
@@ -41,12 +43,53 @@ function combineLikeSources(sources) {
   return Object.values(combined);
 }
 
-export default function Citations({ sources = [] }) {
+export default function Citations({ sources = [], workspaceSlug = null }) {
   if (sources.length === 0) return null;
   const [open, setOpen] = useState(false);
   const [selectedSource, setSelectedSource] = useState(null);
+  const [showDocumentViewer, setShowDocumentViewer] = useState(false);
+  const [documentToView, setDocumentToView] = useState(null);
   const { t } = useTranslation();
   const { textSizeClass } = useTextSize();
+
+  const handleViewDocument = (source) => {
+    // Extract document ID from source - this is a simplified approach
+    // In a real implementation, you'd need to parse the chunkSource or metadata
+    const documentId = extractDocumentId(source);
+    if (documentId && workspaceSlug) {
+      setDocumentToView({
+        id: documentId,
+        workspaceSlug: workspaceSlug,
+        source: source,
+      });
+      setShowDocumentViewer(true);
+    }
+  };
+
+  const extractDocumentId = (source) => {
+    // Try to extract document ID from the source
+    // This is a simplified implementation - in reality, you'd need to:
+    // 1. Parse the chunkSource to get the original document filename
+    // 2. Use that to look up the document ID from the backend
+
+    // For now, use the source title as a document ID for testing
+    if (source.title) {
+      // Remove file extension and use as ID
+      return source.title.replace(/\.[^/.]+$/, "");
+    }
+
+    // Fallback to first chunk's chunkSource if available
+    if (source.chunks && source.chunks.length > 0) {
+      const chunkSource = source.chunks[0].chunkSource;
+      if (chunkSource) {
+        // Extract filename from chunkSource and use as ID
+        const filename = chunkSource.split("/").pop().split(".")[0];
+        return filename;
+      }
+    }
+
+    return null;
+  };
 
   return (
     <div className="flex flex-col mt-4 justify-left">
@@ -83,6 +126,19 @@ export default function Citations({ sources = [] }) {
         <CitationDetailModal
           source={selectedSource}
           onClose={() => setSelectedSource(null)}
+          onViewDocument={handleViewDocument}
+          workspaceSlug={workspaceSlug}
+        />
+      )}
+
+      {showDocumentViewer && documentToView && (
+        <DocumentViewer
+          documentId={documentToView.id}
+          workspaceSlug={documentToView.workspaceSlug}
+          onClose={() => {
+            setShowDocumentViewer(false);
+            setDocumentToView(null);
+          }}
         />
       )}
     </div>
@@ -126,9 +182,16 @@ function omitChunkHeader(text) {
   return text.split("</document_metadata>")[1].trim();
 }
 
-function CitationDetailModal({ source, onClose }) {
+function CitationDetailModal({
+  source,
+  onClose,
+  onViewDocument,
+  workspaceSlug,
+}) {
   const { references, title, chunks } = source;
   const { isUrl, text: webpageUrl, href: linkTo } = parseChunkSource(source);
+
+  const canViewDocument = !isUrl && workspaceSlug && title;
 
   return (
     <ModalWrapper isOpen={source}>
@@ -160,6 +223,20 @@ function CitationDetailModal({ source, onClose }) {
               Referenced {references} times.
             </p>
           )}
+
+          {/* View Document Button */}
+          {canViewDocument && (
+            <button
+              onClick={() => onViewDocument(source)}
+              type="button"
+              className="absolute top-4 right-12 transition-all duration-300 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm p-2 inline-flex items-center gap-x-1"
+              title="View document with highlighting"
+            >
+              <Eye size={16} weight="bold" />
+              <span className="text-xs font-medium">View Document</span>
+            </button>
+          )}
+
           <button
             onClick={onClose}
             type="button"

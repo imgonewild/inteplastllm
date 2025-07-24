@@ -72,7 +72,7 @@ const PromptReply = ({
             message={reply}
           />
         </div>
-        <Citations sources={sources} />
+        <Citations sources={sources} workspaceSlug={workspace?.slug} />
       </div>
     </div>
   );

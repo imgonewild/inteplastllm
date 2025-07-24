@@ -1,0 +1,402 @@
+/* DocumentViewer.css */
+
+/* PDF Viewer Styles */
+.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-pdf__Page {
+  background: white !important;
+  margin-bottom: 1rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease;
+  position: relative;
+}
+
+.react-pdf__Page:hover {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.react-pdf__Page__textContent {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.react-pdf__Page__textContent span {
+  position: absolute;
+  color: transparent;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.react-pdf__Page__annotations {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+}
+
+/* Custom scrollbar for document container */
+.document-viewer-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.document-viewer-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.document-viewer-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.document-viewer-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Source highlighting styles */
+.source-highlight {
+  position: absolute;
+  border-radius: 3px;
+  mix-blend-mode: multiply;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.source-highlight:hover {
+  opacity: 0.8;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* PDF-specific highlighting styles */
+.pdf-highlight {
+  position: absolute;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 20;
+  pointer-events: auto;
+  opacity: 0.7;
+  border: 1px solid;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.pdf-highlight:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.pdf-highlight-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  max-width: 250px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pdf-highlight-tooltip.visible {
+  opacity: 1;
+}
+
+.source-highlight.high-relevance {
+  background-color: rgba(255, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.source-highlight.medium-relevance {
+  background-color: rgba(255, 165, 0, 0.3);
+  border: 1px solid rgba(255, 165, 0, 0.5);
+}
+
+.source-highlight.low-relevance {
+  background-color: rgba(255, 255, 0, 0.3);
+  border: 1px solid rgba(255, 255, 0, 0.5);
+}
+
+.source-highlight.search-result {
+  background-color: rgba(0, 0, 255, 0.3);
+  border: 1px solid rgba(0, 0, 255, 0.5);
+}
+
+/* Tooltip for highlights */
+.highlight-tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  max-width: 200px;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.highlight-tooltip.visible {
+  opacity: 1;
+}
+
+/* Loading states */
+.document-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #6b7280;
+}
+
+.document-loading .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error states */
+.document-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #dc2626;
+  text-align: center;
+  padding: 20px;
+}
+
+.document-error .error-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* Toolbar styles */
+.document-toolbar {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toolbar-button {
+  padding: 6px;
+  border: none;
+  background: none;
+  color: #6b7280;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toolbar-button:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.toolbar-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.toolbar-button.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.toolbar-button.active:hover {
+  background: #2563eb;
+}
+
+/* Page navigation */
+.page-input {
+  width: 48px;
+  text-align: center;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 14px;
+}
+
+.page-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+/* Search input */
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 200px;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+  width: 240px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 8px;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.search-spinner {
+  position: absolute;
+  right: 8px;
+}
+
+/* Zoom indicator */
+.zoom-indicator {
+  font-size: 14px;
+  color: #6b7280;
+  min-width: 48px;
+  text-align: center;
+}
+
+/* Clear highlights button */
+.clear-highlights-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clear-highlights-btn:hover {
+  background: #e5e7eb;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .document-toolbar {
+    flex-direction: column;
+    gap: 12px;
+    padding: 8px 12px;
+  }
+
+  .toolbar-section {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-input {
+    width: 160px;
+  }
+
+  .search-input:focus {
+    width: 180px;
+  }
+}
+
+/* Accessibility improvements */
+.toolbar-button:focus,
+.page-input:focus,
+.search-input:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .source-highlight {
+    border-width: 2px;
+  }
+
+  .source-highlight.high-relevance {
+    background-color: rgba(255, 0, 0, 0.5);
+  }
+
+  .source-highlight.medium-relevance {
+    background-color: rgba(255, 165, 0, 0.5);
+  }
+
+  .source-highlight.low-relevance {
+    background-color: rgba(255, 255, 0, 0.5);
+  }
+
+  .source-highlight.search-result {
+    background-color: rgba(0, 0, 255, 0.5);
+  }
+}
+
+/* Print styles */
+@media print {
+  .document-toolbar {
+    display: none;
+  }
+
+  .source-highlight {
+    background: none !important;
+    border: 2px solid #000 !important;
+  }
+}

@@ -155,7 +155,9 @@ const HistoricalMessage = ({
             metrics={metrics}
             alignmentCls={alignmentCls}
           />
-          {role === "assistant" && <Citations sources={sources} />}
+          {role === "assistant" && (
+            <Citations sources={sources} workspaceSlug={workspace?.slug} />
+          )}
         </div>
       </div>
     </div>
