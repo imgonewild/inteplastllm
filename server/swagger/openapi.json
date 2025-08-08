@@ -1668,6 +1668,296 @@
         }
       }
     },
+    "/v1/workspace/{workspaceSlug}/document/{docId}": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Get document metadata for workspace document viewer",
+        "parameters": [
+          {
+            "name": "workspaceSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Workspace slug"
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Document ID or title"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/workspace/{workspaceSlug}/document/{docId}/ask": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Ask questions about a specific document",
+        "parameters": [
+          {
+            "name": "workspaceSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Workspace slug"
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Document ID or title"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "question": {
+                    "type": "string",
+                    "description": "Question to ask about the document"
+                  },
+                  "contextMode": {
+                    "type": "string",
+                    "description": "Context mode for the question"
+                  }
+                },
+                "required": [
+                  "question"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/workspace/{workspaceSlug}/document/{docId}/chunk/{chunkId}": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Get specific document chunk details",
+        "parameters": [
+          {
+            "name": "workspaceSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Workspace slug"
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Document ID or title"
+          },
+          {
+            "name": "chunkId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Chunk ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/workspace/{workspaceSlug}/document/{docId}/pdf": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Serve original PDF file for document viewer",
+        "parameters": [
+          {
+            "name": "workspaceSlug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Workspace slug"
+          },
+          {
+            "name": "docId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Document ID or title"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/v1/public-documents": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "List all public documents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v1/public-documents/add": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Add a document to public access",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filename": {
+                    "type": "string",
+                    "description": "Original filename"
+                  },
+                  "preferredName": {
+                    "type": "string",
+                    "description": "Preferred public filename (optional)"
+                  }
+                },
+                "required": [
+                  "filename"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/public-documents/{documentId}": {
+      "delete": {
+        "tags": [
+          "Documents"
+        ],
+        "description": "Remove a document from public access",
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Document ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/v1/workspace/new": {
       "post": {
         "tags": [

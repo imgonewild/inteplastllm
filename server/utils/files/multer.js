@@ -5,6 +5,43 @@ const { v4 } = require("uuid");
 const { normalizePath } = require(".");
 
 /**
+ * Copy uploaded file to frontend/documents directory for URL access
+ * @param {string} originalPath - Path of the original uploaded file
+ * @param {string} filename - Original filename
+ */
+function copyToFrontendDocuments(originalPath, filename) {
+  try {
+    const frontendDocumentsPath = path.resolve(
+      __dirname,
+      "../../../frontend/public/documents"
+    );
+
+    // Ensure the frontend documents directory exists
+    if (!fs.existsSync(frontendDocumentsPath)) {
+      fs.mkdirSync(frontendDocumentsPath, { recursive: true });
+    }
+
+    const destinationPath = path.join(frontendDocumentsPath, filename);
+
+    // Copy the file if the original exists
+    if (fs.existsSync(originalPath)) {
+      fs.copyFileSync(originalPath, destinationPath);
+      console.log(`File copied to frontend/public/documents: ${filename}`);
+      return {
+        success: true,
+        frontendPath: destinationPath,
+        publicUrl: `/documents/${filename}`,
+      };
+    }
+
+    return { success: false, error: "Source file not found" };
+  } catch (error) {
+    console.error("Error copying file to frontend/public/documents:", error);
+    return { success: false, error: error.message };
+  }
+}
+
+/**
  * Handle File uploads for auto-uploading.
  * Mostly used for internal GUI/API uploads.
  */
@@ -117,6 +154,16 @@ function handleFileUpload(request, response, next) {
         .end();
       return;
     }
+
+    // Copy uploaded file to frontend/documents for URL access
+    if (request.file) {
+      const copyResult = copyToFrontendDocuments(
+        request.file.path,
+        request.file.originalname
+      );
+      request.frontendCopyResult = copyResult;
+    }
+
     next();
   });
 }
@@ -148,6 +195,16 @@ function handleAPIFileUpload(request, response, next) {
         .end();
       return;
     }
+
+    // Copy uploaded file to frontend/documents for URL access
+    if (request.file) {
+      const copyResult = copyToFrontendDocuments(
+        request.file.path,
+        request.file.originalname
+      );
+      request.frontendCopyResult = copyResult;
+    }
+
     next();
   });
 }
@@ -211,4 +268,5 @@ module.exports = {
   handleAPIFileUpload,
   handleAssetUpload,
   handlePfpUpload,
+  copyToFrontendDocuments,
 };

@@ -57,13 +57,32 @@ export default function Citations({ sources = [], workspaceSlug = null }) {
     // In a real implementation, you'd need to parse the chunkSource or metadata
     const documentId = extractDocumentId(source);
     if (documentId && workspaceSlug) {
+      // Prepare highlighting data from the source chunks
+      const highlightData =
+        source.chunks?.map((chunk, index) => ({
+          id: chunk.id || `chunk-${index}`,
+          content: chunk.text,
+          chunkSource: chunk.chunkSource,
+          similarity: chunk.score || 0.8,
+          color: getHighlightColor(chunk.score || 0.8),
+        })) || [];
+
       setDocumentToView({
         id: documentId,
         workspaceSlug: workspaceSlug,
         source: source,
+        highlightData: highlightData,
+        title: source.title,
       });
       setShowDocumentViewer(true);
     }
+  };
+
+  const getHighlightColor = (similarity) => {
+    if (similarity > 0.9) return "rgba(255, 0, 0, 0.4)"; // Red for highest relevance
+    if (similarity > 0.8) return "rgba(255, 165, 0, 0.4)"; // Orange
+    if (similarity > 0.7) return "rgba(255, 255, 0, 0.4)"; // Yellow
+    return "rgba(0, 255, 0, 0.4)"; // Green for lower relevance
   };
 
   const extractDocumentId = (source) => {
@@ -135,6 +154,8 @@ export default function Citations({ sources = [], workspaceSlug = null }) {
         <DocumentViewer
           documentId={documentToView.id}
           workspaceSlug={documentToView.workspaceSlug}
+          initialHighlights={documentToView.highlightData || []}
+          sourceContext={documentToView.source}
           onClose={() => {
             setShowDocumentViewer(false);
             setDocumentToView(null);
@@ -191,7 +212,6 @@ function CitationDetailModal({
   const { references, title, chunks } = source;
   const { isUrl, text: webpageUrl, href: linkTo } = parseChunkSource(source);
 
-  const canViewDocument = !isUrl && workspaceSlug && title;
 
   return (
     <ModalWrapper isOpen={source}>
@@ -222,19 +242,6 @@ function CitationDetailModal({
             <p className="text-xs text-gray-400 mt-2">
               Referenced {references} times.
             </p>
-          )}
-
-          {/* View Document Button */}
-          {canViewDocument && (
-            <button
-              onClick={() => onViewDocument(source)}
-              type="button"
-              className="absolute top-4 right-12 transition-all duration-300 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm p-2 inline-flex items-center gap-x-1"
-              title="View document with highlighting"
-            >
-              <Eye size={16} weight="bold" />
-              <span className="text-xs font-medium">View Document</span>
-            </button>
           )}
 
           <button

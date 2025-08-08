@@ -83,7 +83,7 @@ export default [
     },
     rules: {
       ...jsxRuntime.rules,
-      "react/prop-types": "off", // FIXME
+      "react/prop-types": "off",
       "react-refresh/only-export-components": "warn"
     }
   }

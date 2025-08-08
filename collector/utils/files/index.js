@@ -82,6 +82,15 @@ function trashFile(filepath) {
     return;
   }
 
+  // Check if file retention is enabled
+  const retainFiles = process.env.RETAIN_ORIGINAL_FILES === "true";
+  const isHotdirFile = filepath.includes("hotdir");
+
+  if (retainFiles && isHotdirFile) {
+    console.log(`[FILE_RETENTION]: Preserving original file: ${filepath}`);
+    return;
+  }
+
   fs.rmSync(filepath);
   return;
 }

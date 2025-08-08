@@ -76,13 +76,39 @@ if (process.env.NODE_ENV !== "development") {
   const { MetaGenerator } = require("./utils/boot/MetaGenerator");
   const IndexPage = new MetaGenerator();
 
+  // Configure static file serving with proper MIME types and security headers
   app.use(
     express.static(path.resolve(__dirname, "public"), {
-      extensions: ["js"],
-      setHeaders: (res) => {
-        // Disable I-framing of entire site UI
+      setHeaders: (res, path, stat) => {
+        // Security headers
         res.removeHeader("X-Powered-By");
-        res.setHeader("X-Frame-Options", "DENY");
+
+        // Set appropriate headers based on file type
+        if (path.includes("/document/")) {
+          // Documents should be viewable inline (not download)
+          res.setHeader("Content-Disposition", "inline");
+
+          // Set proper MIME types for documents
+          if (path.endsWith(".pdf")) {
+            res.setHeader("Content-Type", "application/pdf");
+          } else if (path.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            res.setHeader("Content-Type", "image/*");
+          }
+
+          // Allow embedding documents in iframes for document viewer
+          res.setHeader("X-Frame-Options", "SAMEORIGIN");
+
+          // Log document access
+          const { incrementAccessCount } = require("./utils/publicDocuments");
+          const filename = require("path").basename(path);
+          incrementAccessCount(filename);
+        } else {
+          // Disable I-framing for other UI components
+          res.setHeader("X-Frame-Options", "DENY");
+        }
+
+        // Cache headers for better performance
+        res.setHeader("Cache-Control", "public, max-age=3600");
       },
     })
   );
@@ -97,6 +123,43 @@ if (process.env.NODE_ENV !== "development") {
     response.send("User-agent: *\nDisallow: /").end();
   });
 } else {
+  // Enable static file serving in development mode for public documents
+  app.use(
+    express.static(path.resolve(__dirname, "public"), {
+      setHeaders: (res, filePath, stat) => {
+        // Security headers
+        res.removeHeader("X-Powered-By");
+
+        // Set appropriate headers based on file type
+        if (filePath.includes("/document/")) {
+          // Documents should be viewable inline (not download)
+          res.setHeader("Content-Disposition", "inline");
+
+          // Set proper MIME types for documents
+          if (filePath.endsWith(".pdf")) {
+            res.setHeader("Content-Type", "application/pdf");
+          } else if (filePath.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            res.setHeader("Content-Type", "image/*");
+          }
+
+          // Allow embedding documents in iframes for document viewer
+          res.setHeader("X-Frame-Options", "SAMEORIGIN");
+
+          // Log document access
+          const { incrementAccessCount } = require("./utils/publicDocuments");
+          const filename = require("path").basename(filePath);
+          incrementAccessCount(filename);
+        } else {
+          // Disable I-framing for other UI components
+          res.setHeader("X-Frame-Options", "DENY");
+        }
+
+        // Cache headers for better performance
+        res.setHeader("Cache-Control", "public, max-age=3600");
+      },
+    })
+  );
+
   // Debug route for development connections to vectorDBs
   apiRouter.post("/v/:command", async (request, response) => {
     try {

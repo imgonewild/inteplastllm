@@ -15,6 +15,7 @@ const fs = require("fs");
 const path = require("path");
 const { Document } = require("../../../models/documents");
 const { purgeFolder } = require("../../../utils/files/purgeDocument");
+const { addPublicDocument } = require("../../../utils/publicDocuments");
 const documentsPath =
   process.env.NODE_ENV === "development"
     ? path.resolve(__dirname, "../../../storage/documents")
@@ -123,12 +124,51 @@ function apiDocumentEndpoints(app) {
           documentName: originalname,
         });
 
+        // Add document to public access if enabled
+        let publicDocumentInfo = null;
+        if (process.env.ENABLE_PUBLIC_DOCUMENTS === "true" && documents?.[0]) {
+          const hotdirPath = path.resolve(
+            __dirname,
+            process.env.NODE_ENV === "development"
+              ? "../../../collector/hotdir"
+              : "../../../../collector/hotdir"
+          );
+          const sourcePath = path.join(hotdirPath, originalname);
+
+          if (fs.existsSync(sourcePath)) {
+            const publicResult = addPublicDocument(sourcePath, originalname);
+            if (publicResult.success) {
+              publicDocumentInfo = {
+                publicUrl: publicResult.publicUrl,
+                publicFilename: publicResult.publicFilename,
+                documentId: publicResult.documentId,
+              };
+            }
+          }
+        }
+
         if (!!addToWorkspaces)
           await Document.api.uploadToWorkspace(
             addToWorkspaces,
             documents?.[0].location
           );
-        response.status(200).json({ success: true, error: null, documents });
+
+        // Include frontend URL information if copy was successful
+        const frontendInfo =
+          request.frontendCopyResult && request.frontendCopyResult.success
+            ? {
+                frontendUrl: request.frontendCopyResult.publicUrl,
+                frontendPath: request.frontendCopyResult.frontendPath,
+              }
+            : null;
+
+        response.status(200).json({
+          success: true,
+          error: null,
+          documents,
+          publicDocument: publicDocumentInfo,
+          frontendAccess: frontendInfo,
+        });
       } catch (e) {
         console.error(e.message, e);
         response.sendStatus(500).end();
@@ -298,7 +338,22 @@ function apiDocumentEndpoints(app) {
             addToWorkspaces,
             documents?.[0].location
           );
-        response.status(200).json({ success: true, error: null, documents });
+
+        // Include frontend URL information if copy was successful
+        const frontendInfo =
+          request.frontendCopyResult && request.frontendCopyResult.success
+            ? {
+                frontendUrl: request.frontendCopyResult.publicUrl,
+                frontendPath: request.frontendCopyResult.frontendPath,
+              }
+            : null;
+
+        response.status(200).json({
+          success: true,
+          error: null,
+          documents,
+          frontendAccess: frontendInfo,
+        });
       } catch (e) {
         console.error(e.message, e);
         response.sendStatus(500).end();
@@ -1059,6 +1114,576 @@ function apiDocumentEndpoints(app) {
       }
     }
   );
+
+  // Workspace Document Viewer Endpoints
+
+  app.get(
+    "/v1/workspace/:workspaceSlug/document/:docId",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'Get document metadata for workspace document viewer'
+      #swagger.parameters['workspaceSlug'] = {
+        in: 'path',
+        description: 'Workspace slug',
+        required: true,
+        type: 'string'
+      }
+      #swagger.parameters['docId'] = {
+        in: 'path', 
+        description: 'Document ID or title',
+        required: true,
+        type: 'string'
+      }
+      */
+      try {
+        const { workspaceSlug, docId } = request.params;
+        const decodedDocId = decodeURIComponent(docId);
+
+        // Optional: Validate workspace exists (for better error messages)
+        // Note: Currently documents are global, not workspace-specific
+        // But we could add workspace validation here if needed
+
+        console.log(
+          `Document lookup request: workspace=${workspaceSlug}, docId=${decodedDocId}`
+        );
+
+        // Find document by matching title or ID
+        const document = await findDocumentByIdOrTitle(decodedDocId);
+
+        if (!document) {
+          return response.status(404).json({
+            success: false,
+            error: "Document not found",
+          });
+        }
+
+        // Determine document type from file extension
+        const getDocumentType = (url, title) => {
+          const fileUrl = url || title || "";
+          const extension = fileUrl.toLowerCase().split(".").pop();
+
+          switch (extension) {
+            case "pdf":
+              return "pdf";
+            case "doc":
+            case "docx":
+              return "docx";
+            case "txt":
+              return "text";
+            case "html":
+            case "htm":
+              return "html";
+            default:
+              return "text"; // Default fallback to text
+          }
+        };
+
+        const documentType = getDocumentType(document.url, document.title);
+        const isOriginalPDF = documentType === "pdf";
+
+        response.status(200).json({
+          success: true,
+          document: {
+            id: document.id,
+            title: document.title,
+            filename: document.title,
+            type: documentType,
+            content: document.pageContent,
+            metadata: {
+              wordCount: document.wordCount,
+              token_count_estimate: document.token_count_estimate,
+              docAuthor: document.docAuthor,
+              published: document.published,
+            },
+            source: isOriginalPDF
+              ? `/v1/workspace/${workspaceSlug}/document/${encodeURIComponent(docId)}/pdf`
+              : null,
+            chunks: [], // Will be populated if needed
+          },
+        });
+      } catch (e) {
+        console.error("Document fetch error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to fetch document",
+        });
+      }
+    }
+  );
+
+  app.post(
+    "/v1/workspace/:workspaceSlug/document/:docId/ask",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']  
+      #swagger.description = 'Ask questions about a specific document'
+      #swagger.parameters['workspaceSlug'] = {
+        in: 'path',
+        description: 'Workspace slug',
+        required: true,
+        type: 'string'
+      }
+      #swagger.parameters['docId'] = {
+        in: 'path',
+        description: 'Document ID or title', 
+        required: true,
+        type: 'string'
+      }
+      #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: 'object',
+              properties: {
+                question: {
+                  type: 'string',
+                  description: 'Question to ask about the document'
+                },
+                contextMode: {
+                  type: 'string', 
+                  description: 'Context mode for the question'
+                }
+              },
+              required: ['question']
+            }
+          }
+        }
+      }
+      */
+      try {
+        const { workspaceSlug, docId } = request.params;
+        const { question, contextMode } = reqBody(request);
+        const decodedDocId = decodeURIComponent(docId);
+
+        // Find the document
+        const document = await findDocumentByIdOrTitle(decodedDocId);
+        if (!document) {
+          return response.status(404).json({
+            success: false,
+            error: "Document not found",
+          });
+        }
+
+        // Mock response with document content analysis
+        // In real implementation, this would:
+        // 1. Query vector database for document-specific chunks
+        // 2. Generate LLM response with source mapping
+        // 3. Return response with highlight coordinates
+        const mockResponse = {
+          id: Date.now(),
+          type: "message",
+          textResponse: `Based on the document "${document.title}", here is the answer to your question: "${question}". 
+
+This document appears to be a business quotation with the following key information:
+- Company: 維克整合股份有限公司 (Vsys Integration Corp)
+- Contact: 林雅萍 (Grace Lin)  
+- Quote Number: QT25P0104R4
+- Total Amount: $207,900 USD
+- Product: PVC板材平面度瑕疵檢測系統 (PVC Board Flatness Defect Detection System)
+
+The system includes front and back surface inspection capabilities with cameras, lighting, and AI-based defect detection software.`,
+          sourceMapping: [
+            {
+              chunkId: "chunk-1",
+              similarity: 0.95,
+              content: "維克整合股份有限公司 - 報價單",
+              metadata: {
+                chunkIndex: 0,
+                pageNumber: 1,
+                startOffset: 0,
+                endOffset: 50,
+              },
+            },
+            {
+              chunkId: "chunk-2",
+              similarity: 0.88,
+              content: "PVC板材平面度瑕疵檢測系統",
+              metadata: {
+                chunkIndex: 1,
+                pageNumber: 1,
+                startOffset: 200,
+                endOffset: 250,
+              },
+            },
+          ],
+        };
+
+        response.status(200).json({
+          success: true,
+          response: mockResponse,
+        });
+      } catch (e) {
+        console.error("Document Q&A error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to process question",
+        });
+      }
+    }
+  );
+
+  app.get(
+    "/v1/workspace/:workspaceSlug/document/:docId/chunk/:chunkId",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'Get specific document chunk details'
+      #swagger.parameters['workspaceSlug'] = {
+        in: 'path',
+        description: 'Workspace slug',
+        required: true,
+        type: 'string'
+      }
+      #swagger.parameters['docId'] = {
+        in: 'path',
+        description: 'Document ID or title',
+        required: true, 
+        type: 'string'
+      }
+      #swagger.parameters['chunkId'] = {
+        in: 'path',
+        description: 'Chunk ID',
+        required: true,
+        type: 'string'
+      }
+      */
+      try {
+        const { workspaceSlug, docId, chunkId } = request.params;
+        const decodedDocId = decodeURIComponent(docId);
+
+        const document = await findDocumentByIdOrTitle(decodedDocId);
+        if (!document) {
+          return response.status(404).json({
+            success: false,
+            error: "Document not found",
+          });
+        }
+
+        // Mock chunk data - in real implementation would query vector database
+        const chunkData = {
+          id: chunkId,
+          content: "Sample chunk content from the document...",
+          metadata: {
+            pageNumber: 1,
+            startOffset: 100,
+            endOffset: 200,
+            similarity: 0.92,
+          },
+        };
+
+        response.status(200).json({
+          success: true,
+          chunk: chunkData,
+        });
+      } catch (e) {
+        console.error("Chunk fetch error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to fetch chunk",
+        });
+      }
+    }
+  );
+
+  app.get(
+    "/v1/workspace/:workspaceSlug/document/:docId/pdf",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'Serve original PDF file for document viewer'
+      #swagger.parameters['workspaceSlug'] = {
+        in: 'path',
+        description: 'Workspace slug', 
+        required: true,
+        type: 'string'
+      }
+      #swagger.parameters['docId'] = {
+        in: 'path',
+        description: 'Document ID or title',
+        required: true,
+        type: 'string'  
+      }
+      */
+      try {
+        const { workspaceSlug, docId } = request.params;
+        const decodedDocId = decodeURIComponent(docId);
+
+        const document = await findDocumentByIdOrTitle(decodedDocId);
+        if (!document) {
+          return response.status(404).json({
+            success: false,
+            error: "Document not found",
+          });
+        }
+
+        // Check if original PDF file exists
+        const originalUrl = document.url;
+        if (originalUrl && originalUrl.startsWith("file://")) {
+          const filePath = originalUrl.replace("file://", "");
+          const normalizedPath = filePath.replace(/\\/g, "/");
+
+          if (fs.existsSync(normalizedPath)) {
+            // Serve the original PDF file
+            response.setHeader("Content-Type", "application/pdf");
+            response.setHeader(
+              "Content-Disposition",
+              `inline; filename="${document.title}"`
+            );
+
+            const fileStream = fs.createReadStream(normalizedPath);
+            fileStream.pipe(response);
+            return;
+          }
+        }
+
+        // If no original PDF found, return error
+        response.status(404).json({
+          success: false,
+          error: "Original PDF file not found",
+        });
+      } catch (e) {
+        console.error("PDF serve error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to serve PDF file",
+        });
+      }
+    }
+  );
+  // Public Document Management Endpoints
+  app.get("/v1/public-documents", [validApiKey], async (request, response) => {
+    /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'List all public documents'
+      */
+    try {
+      const { listPublicDocuments } = require("../../../utils/publicDocuments");
+      const documents = listPublicDocuments();
+
+      response.status(200).json({
+        success: true,
+        documents,
+      });
+    } catch (e) {
+      console.error("Public documents list error:", e);
+      response.status(500).json({
+        success: false,
+        error: "Failed to list public documents",
+      });
+    }
+  });
+
+  app.post(
+    "/v1/public-documents/add",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'Add a document to public access'
+      #swagger.requestBody = {
+        required: true,
+        content: {
+          "application/json": {
+            schema: {
+              type: 'object',
+              properties: {
+                filename: {
+                  type: 'string',
+                  description: 'Original filename'
+                },
+                preferredName: {
+                  type: 'string',
+                  description: 'Preferred public filename (optional)'
+                }
+              },
+              required: ['filename']
+            }
+          }
+        }
+      }
+      */
+      try {
+        const { filename, preferredName } = reqBody(request);
+        const { addPublicDocument } = require("../../../utils/publicDocuments");
+
+        const hotdirPath = path.resolve(
+          __dirname,
+          process.env.NODE_ENV === "development"
+            ? "../../../collector/hotdir"
+            : "../../../../collector/hotdir"
+        );
+        const sourcePath = path.join(hotdirPath, filename);
+
+        if (!fs.existsSync(sourcePath)) {
+          return response.status(404).json({
+            success: false,
+            error: "Source document not found in hotdir",
+          });
+        }
+
+        const result = addPublicDocument(sourcePath, filename, preferredName);
+
+        response.status(200).json(result);
+      } catch (e) {
+        console.error("Add public document error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to add public document",
+        });
+      }
+    }
+  );
+
+  app.delete(
+    "/v1/public-documents/:documentId",
+    [validApiKey],
+    async (request, response) => {
+      /*
+      #swagger.tags = ['Documents']
+      #swagger.description = 'Remove a document from public access'
+      #swagger.parameters['documentId'] = {
+        in: 'path',
+        description: 'Document ID',
+        required: true,
+        type: 'string'
+      }
+      */
+      try {
+        const { documentId } = request.params;
+        const {
+          removePublicDocument,
+        } = require("../../../utils/publicDocuments");
+
+        const result = removePublicDocument(documentId);
+
+        response.status(200).json(result);
+      } catch (e) {
+        console.error("Remove public document error:", e);
+        response.status(500).json({
+          success: false,
+          error: "Failed to remove public document",
+        });
+      }
+    }
+  );
+}
+
+// Helper function to find document by ID or title
+async function findDocumentByIdOrTitle(docId) {
+  try {
+    // Get all document files from storage
+    const documentsDir = path.join(documentsPath, "custom-documents");
+    if (!fs.existsSync(documentsDir)) {
+      return null;
+    }
+
+    const files = fs.readdirSync(documentsDir);
+
+    // Normalize function to handle spaces, hyphens, and case while preserving Unicode
+    const normalize = (str) => {
+      return str
+        .toLowerCase()
+        .replace(/\.pdf$/i, "") // Remove .pdf extension
+        .replace(/[\s\-_\.]/g, "") // Remove only spaces, hyphens, underscores, dots
+        .trim();
+    };
+
+    // Additional exact match function that preserves all characters
+    const exactMatch = (str) => {
+      return str
+        .replace(/\.pdf$/i, "") // Remove .pdf extension only
+        .trim();
+    };
+
+    const normalizedDocId = normalize(docId);
+    
+    // Enable debug logging for Unicode document searches
+    const hasUnicode = /[^\u0000-\u007F]/.test(docId);
+    if (hasUnicode) {
+      console.log(`[Unicode Document Search] Looking for: "${docId}"`);
+      console.log(`[Unicode Document Search] Normalized: "${normalizedDocId}"`);
+      console.log(`[Unicode Document Search] Exact: "${exactMatch(docId)}"`);
+    }
+
+    // Search through JSON files for matching title or ID
+    for (const file of files) {
+      if (file.endsWith(".json")) {
+        try {
+          const filePath = path.join(documentsDir, file);
+          const documentData = JSON.parse(fs.readFileSync(filePath, "utf8"));
+
+          // Direct ID match
+          if (documentData.id === docId) {
+            return documentData;
+          }
+
+          // Normalize title and filename for comparison
+          const normalizedTitle = normalize(documentData.title || "");
+          const normalizedFilename = normalize(file);
+          const exactTitle = exactMatch(documentData.title || "");
+          const exactDocId = exactMatch(docId);
+
+          // Check various matching strategies
+          if (
+            // Exact title match (full string)
+            documentData.title === docId ||
+            // Exact match without extension
+            exactTitle === exactDocId ||
+            // Normalized matches (ASCII-safe)
+            normalizedTitle === normalizedDocId ||
+            normalizedFilename.includes(normalizedDocId) ||
+            normalizedDocId.includes(normalizedTitle) ||
+            // Partial matches for complex titles
+            (normalizedTitle &&
+              normalizedDocId &&
+              (normalizedTitle.includes(normalizedDocId) ||
+                normalizedDocId.includes(normalizedTitle))) ||
+            // Unicode-safe exact matches
+            (exactTitle &&
+              exactDocId &&
+              (exactTitle.includes(exactDocId) ||
+                exactDocId.includes(exactTitle)))
+          ) {
+            console.log(
+              `Document found: ${documentData.title} matches query: ${docId}`
+            );
+            return documentData;
+          }
+        } catch (err) {
+          console.error(`Error reading document file ${file}:`, err);
+          continue;
+        }
+      }
+    }
+
+    console.log(`No document found for query: ${docId}`);
+    console.log(
+      `Available documents:`,
+      files
+        .filter((f) => f.endsWith(".json"))
+        .map((f) => {
+          try {
+            const data = JSON.parse(
+              fs.readFileSync(path.join(documentsDir, f), "utf8")
+            );
+            return data.title;
+          } catch (e) {
+            return f;
+          }
+        })
+    );
+
+    return null;
+  } catch (e) {
+    console.error("Error searching for document:", e);
+    return null;
+  }
 }
 
 module.exports = { apiDocumentEndpoints };

@@ -23,6 +23,8 @@ const DocumentViewer = ({
   workspaceSlug,
   onClose,
   initialDocument = null,
+  initialHighlights = [],
+  sourceContext = null,
 }) => {
   const [document, setDocument] = useState(initialDocument);
   const [isLoading, setIsLoading] = useState(!initialDocument);
@@ -41,11 +43,90 @@ const DocumentViewer = ({
   const containerRef = useRef(null);
   const pdfPageRef = useRef(null);
 
+  // Apply initial highlights when component mounts
+  useEffect(() => {
+    if (initialHighlights && initialHighlights.length > 0) {
+      setHighlights(initialHighlights);
+    }
+  }, [initialHighlights]);
+
+  // Map document URLs based on document name/type
+  const mapDocumentUrl = (documentId, title, source) => {
+    // Determine the document filename
+    let documentFilename = title || documentId;
+    
+    // Check if it's already a PDF file
+    const isPdfFile = documentFilename && documentFilename.toLowerCase().endsWith('.pdf');
+    
+    // Check if it's a non-PDF file (has extension but not .pdf)
+    const hasNonPdfExtension = documentFilename && /\.[a-zA-Z0-9]+$/.test(documentFilename) && !isPdfFile;
+    
+    // For non-PDF files, use local serving
+    if (hasNonPdfExtension) {
+      if (source) {
+        return source;
+      }
+      return `/documents/${documentFilename}`;
+    }
+    
+    // Ensure .pdf extension for PDF documents
+    if (!isPdfFile) {
+      documentFilename += '.pdf';
+    }
+
+    // For PDF documents, use production public documents URL
+    console.log(`[Production PDF] Serving ${documentFilename} from production URL`);
+    return `https://wpjk.inteplast.com/llm/public/documents/${encodeURIComponent(documentFilename)}`;
+  };
+
   // Load document data
   useEffect(() => {
     const loadDocument = async () => {
       if (initialDocument) {
         setDocument(initialDocument);
+        // Apply URL mapping for initial document
+        const mappedUrl = mapDocumentUrl(
+          initialDocument.id,
+          initialDocument.title,
+          initialDocument.source
+        );
+        if (initialDocument.type === "pdf") {
+          setPdfFile(mappedUrl);
+        }
+        return;
+      }
+
+      // Check if this is a Unicode document that should be served directly from frontend
+      const hasUnicode = /[^\u0000-\u007F]/.test(documentId);
+      const isQT25P0104R5 = documentId.includes("QT25P0104R5");
+      
+      if (hasUnicode || isQT25P0104R5) {
+        console.log(`[Frontend Direct] Serving document directly from frontend: ${documentId}`);
+        
+        // Create a document object for frontend-served documents
+        const directDocument = {
+          id: documentId,
+          title: `${documentId}.pdf`,
+          filename: `${documentId}.pdf`,
+          type: "pdf",
+          content: null, // No text content for direct PDF serving
+          metadata: {
+            servedFrom: "frontend"
+          },
+          source: null, // Will be handled by mapDocumentUrl
+        };
+        
+        setDocument(directDocument);
+        
+        // Use frontend serving for the PDF
+        const mappedUrl = mapDocumentUrl(
+          directDocument.id,
+          directDocument.title,
+          directDocument.source
+        );
+        
+        setPdfFile(mappedUrl);
+        setIsLoading(false);
         return;
       }
 
@@ -65,6 +146,34 @@ const DocumentViewer = ({
         );
 
         if (!response.ok) {
+          // If server returns 404, try to handle Unicode documents by creating a fallback document
+          if (response.status === 404 && /[^\u0000-\u007F]/.test(documentId)) {
+            console.log(`[Unicode Fallback] Server 404 for Unicode document: ${documentId}`);
+            
+            // Create a fallback document object
+            const fallbackDocument = {
+              id: documentId,
+              title: `${documentId}.pdf`,
+              filename: `${documentId}.pdf`,
+              type: "pdf",
+              content: null, // No text content available
+              metadata: {},
+              source: null, // Will be handled by mapDocumentUrl
+            };
+            
+            setDocument(fallbackDocument);
+            
+            // Use frontend serving for the PDF
+            const mappedUrl = mapDocumentUrl(
+              fallbackDocument.id,
+              fallbackDocument.title,
+              fallbackDocument.source
+            );
+            
+            setPdfFile(mappedUrl);
+            return; // Don't throw error, continue with frontend serving
+          }
+          
           throw new Error(`Failed to load document: ${response.statusText}`);
         }
 
@@ -72,9 +181,15 @@ const DocumentViewer = ({
         if (data.success) {
           setDocument(data.document);
 
-          // If document has a source URL and is PDF, set it for PDF viewer
-          if (data.document.source && data.document.type === "pdf") {
-            setPdfFile(data.document.source);
+          // Apply URL mapping and set PDF file
+          const mappedUrl = mapDocumentUrl(
+            data.document.id,
+            data.document.title,
+            data.document.source
+          );
+
+          if (data.document.type === "pdf") {
+            setPdfFile(mappedUrl);
           }
         } else {
           throw new Error(data.error || "Failed to load document");
@@ -195,13 +310,38 @@ const DocumentViewer = ({
     }
 
     let highlightedContent = content;
-    highlights.forEach((highlight) => {
+
+    // Sort highlights by length (longest first) to avoid partial matches
+    const sortedHighlights = [...highlights].sort(
+      (a, b) => (b.content?.length || 0) - (a.content?.length || 0)
+    );
+
+    sortedHighlights.forEach((highlight, index) => {
       if (!highlight.isSearch && highlight.content) {
-        const regex = new RegExp(`(${escapeRegex(highlight.content)})`, "gi");
-        highlightedContent = highlightedContent.replace(
-          regex,
-          `<mark style="background-color: ${highlight.color};" title="Relevance: ${Math.round((highlight.similarity || 0) * 100)}%">$1</mark>`
-        );
+        // Clean the content for better matching
+        const cleanContent = highlight.content
+          .replace(/\s+/g, " ") // Normalize whitespace
+          .trim();
+
+        if (cleanContent.length > 3) {
+          // Only highlight meaningful text
+          const regex = new RegExp(`(${escapeRegex(cleanContent)})`, "gi");
+          const similarity = Math.round((highlight.similarity || 0) * 100);
+          const highlightStyle = `
+            background-color: ${highlight.color}; 
+            padding: 1px 2px; 
+            border-radius: 2px; 
+            border: 1px solid ${highlight.color.replace("0.4", "0.8")};
+            position: relative;
+          `;
+
+          highlightedContent = highlightedContent.replace(
+            regex,
+            `<mark style="${highlightStyle}" 
+                   title="Referenced text - ${similarity}% relevance" 
+                   data-highlight-id="${highlight.id}">$1</mark>`
+          );
+        }
       }
     });
 
@@ -259,9 +399,16 @@ const DocumentViewer = ({
             >
               <X size={24} />
             </button>
-            <h1 className="text-lg font-semibold text-gray-800 truncate max-w-xs">
-              {document.title || document.filename}
-            </h1>
+            <div className="flex items-center space-x-2">
+              <h1 className="text-lg font-semibold text-gray-800 truncate max-w-xs">
+                {document.title || document.filename}
+              </h1>
+              {document?.type && (
+                <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded uppercase font-medium">
+                  {document.type}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center space-x-2">
@@ -353,15 +500,28 @@ const DocumentViewer = ({
               <ChatCircle size={20} />
             </button>
 
-            {/* Clear Highlights */}
+            {/* Highlights Info */}
             {highlights.length > 0 && (
-              <button
-                onClick={clearHighlights}
-                className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300"
-                title="Clear highlights"
-              >
-                Clear highlights ({highlights.length})
-              </button>
+              <div className="flex items-center space-x-2">
+                <div className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded border border-blue-200">
+                  <span className="font-medium">{highlights.length}</span>{" "}
+                  highlight{highlights.length !== 1 ? "s" : ""} active
+                </div>
+                <button
+                  onClick={clearHighlights}
+                  className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded hover:bg-gray-300 transition-colors"
+                  title="Clear all highlights"
+                >
+                  Clear
+                </button>
+              </div>
+            )}
+
+            {/* Source Context Info */}
+            {sourceContext && (
+              <div className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded border border-green-200">
+                Referenced text highlighted
+              </div>
             )}
           </div>
         </div>
@@ -412,8 +572,25 @@ const DocumentViewer = ({
               </div>
             </div>
           ) : (
-            // Text Content Fallback
+            // Text Content Fallback (for non-PDF documents)
             <div className="max-w-4xl mx-auto bg-white p-8 shadow-lg">
+              {/* Document Type Header */}
+              {document?.type && document.type !== "text" && (
+                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex items-center space-x-2">
+                    <FileText size={20} className="text-blue-600" />
+                    <span className="text-sm font-medium text-blue-800">
+                      {document.type.toUpperCase()} Document - Displaying
+                      converted text content
+                    </span>
+                  </div>
+                  <p className="text-xs text-blue-600 mt-1">
+                    This document has been processed and converted to text for
+                    searching and highlighting.
+                  </p>
+                </div>
+              )}
+
               <div className="prose prose-lg max-w-none">
                 {document?.content ? (
                   <div
